@@ -1,5 +1,8 @@
 package com.sbs.example.mysqlTextBoard.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,39 @@ public class ArticleDao {
 	}
 
 	public List<Article> getArticles() {
+
+		String dbmsJdbcUrl = "jdbc:mysql://localhost:3306/textBoard?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
+		String dbmsJdbcLoginId = "sbsst";
+		String dbmsJdbcLoginPw = "sbs123414";
+
+		// 기사 등록
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+
+		// 연결 생성
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(dbmsJdbcUrl, dbmsJdbcLoginId, dbmsJdbcLoginPw);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return articles;
+	}
+
+	private List<Article> getFakeArticles() {
 		Article article;
 
 		// 임시 게시물 1
@@ -39,9 +75,7 @@ public class ArticleDao {
 		article.boardId = 1;
 
 		articles.add(article);
-
 		return articles;
-
 	}
 
 }
