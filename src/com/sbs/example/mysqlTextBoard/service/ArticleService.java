@@ -22,4 +22,9 @@ public class ArticleService {
 		return articleDao.getArticle(inputId);
 	}
 
+	public void doDelete(int inputId) {
+		articleDao.remove(inputId);
+
+	}
+
 }
