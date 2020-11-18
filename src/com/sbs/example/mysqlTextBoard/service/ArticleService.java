@@ -27,4 +27,8 @@ public class ArticleService {
 
 	}
 
+	public int doWrite(String title, String body, int userId, int boardId) {
+		return articleDao.add(title, body, userId, boardId);
+	}
+
 }
