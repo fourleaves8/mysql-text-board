@@ -17,7 +17,22 @@ public class ArticleController {
 	public void doCmd(String cmd) {
 		if (cmd.equals("article list")) {
 			showList();
+		} else if (cmd.startsWith("article detail ")) {
+			showDetail(cmd);
 		}
+
+	}
+
+	private void showDetail(String cmd) {
+		System.out.println("== 게시물 상세 ==");
+		int inputId = Integer.parseInt(cmd.split(" ")[2]);
+		Article article = articleService.getArticle(inputId);
+		System.out.printf("번호 : %d\n", article.id);
+		System.out.printf("작성일 : %s\n", article.regDate);
+		System.out.printf("수정일 : %s\n", article.updateDate);
+		System.out.printf("작성자 : %s\n", article.userId);
+		System.out.printf("제목 : %s\n", article.title);
+		System.out.printf("내용 : %s\n", article.body);
 
 	}
 

@@ -18,4 +18,8 @@ public class ArticleService {
 		return articleDao.getArticles();
 	}
 
+	public Article getArticle(int inputId) {
+		return articleDao.getArticle(inputId);
+	}
+
 }
