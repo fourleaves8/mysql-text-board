@@ -3,6 +3,7 @@ package com.sbs.example.mysqlTextBoard.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +42,27 @@ public class ArticleDao {
 
 			}
 
-			String sql = "UPDATE article";
-			sql += " SET updateDate = NOW()";
-			sql += " WHERE articleId = 3";
+			String sql = "SELECT * FROM article";
+			sql += " ORDER BY articleId DESC";
 
-			PreparedStatement pstmt;
 			try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.execute();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					Article article = new Article();
+					
+					article.articleId = rs.getInt("articleId");
+					article.regDate = rs.getString("regDate");
+					article.updateDate = rs.getString("updateDate");
+					article.title = rs.getString("title");
+					article.body = rs.getString("body");
+					article.userId = rs.getInt("userId");
+					article.boardId = rs.getInt("boardId");
+
+					articles.add(article);
+				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -65,23 +79,5 @@ public class ArticleDao {
 
 		return articles;
 	}
-
-	/*
-	 * private List<Article> getFakeArticles() { Article article;
-	 * 
-	 * // 임시 게시물 1 article = new Article(); article.articleId = 1; article.regDate =
-	 * "2020-11-18 12:12:12"; article.updateDate = "2020-11-18 12:12:12";
-	 * article.title = "제목1"; article.body = "내용1"; article.userId = 1;
-	 * article.boardId = 1;
-	 * 
-	 * articles.add(article);
-	 * 
-	 * // 임시 게시물 2 article = new Article(); article.articleId = 2; article.regDate =
-	 * "2020-11-18 12:12:15"; article.updateDate = "2020-11-18 12:12:15";
-	 * article.title = "제목2"; article.body = "내용2"; article.userId = 1;
-	 * article.boardId = 1;
-	 * 
-	 * articles.add(article); return articles; }
-	 */
 
 }

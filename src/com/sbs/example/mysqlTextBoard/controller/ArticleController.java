@@ -24,7 +24,10 @@ public class ArticleController {
 	private void showList() {
 		System.out.println("== 게시물 리스트 ==");
 		List<Article> articles = articleService.showList();
-		System.out.println(articles);
+		System.out.println("번호 / 작성 / 수정 / 작성자 / 제목");
+		for (Article article : articles) {
+			System.out.printf("%d / %s / %s / %s / %s\n", article.articleId, article.regDate, article.updateDate, article.userId, article.title);
+		}
 
 	}
 
