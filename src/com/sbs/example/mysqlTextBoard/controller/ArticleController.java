@@ -27,7 +27,6 @@ public class ArticleController {
 		} else if (cmd.equals("article write")) {
 			doWrite();
 		}
-
 	}
 
 	private void doWrite() {
