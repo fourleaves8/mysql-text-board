@@ -43,22 +43,23 @@ public class ArticleDao {
 			}
 
 			String sql = "SELECT * FROM article";
-			sql += " ORDER BY articleId DESC";
+			sql += " ORDER BY id DESC";
 
 			try {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();
-				
+
 				while (rs.next()) {
-					Article article = new Article();
-					
-					article.articleId = rs.getInt("articleId");
-					article.regDate = rs.getString("regDate");
-					article.updateDate = rs.getString("updateDate");
-					article.title = rs.getString("title");
-					article.body = rs.getString("body");
-					article.userId = rs.getInt("userId");
-					article.boardId = rs.getInt("boardId");
+
+					int id = rs.getInt("id");
+					String regDate = rs.getString("regDate");
+					String updateDate = rs.getString("updateDate");
+					String title = rs.getString("title");
+					String body = rs.getString("body");
+					int userId = rs.getInt("userId");
+					int boardId = rs.getInt("boardId");
+
+					Article article = new Article(id, regDate, updateDate, title, body, userId, boardId);
 
 					articles.add(article);
 				}
