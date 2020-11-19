@@ -12,8 +12,8 @@ public class UserService {
 		userDao = Container.userDao;
 	}
 
-	public int doJoin(String accountName, String accountPW, String name) {
-		return userDao.add(accountName, accountPW, name);
+	public int doJoin(String accountName, String accountPw, String name) {
+		return userDao.add(accountName, accountPw, name);
 	}
 
 	public boolean isValidAcctName(String accountName) {
@@ -22,6 +22,10 @@ public class UserService {
 			return false;
 		}
 		return true;
+	}
+
+	public User getUserByAcctName(String accountName) {
+		return userDao.getUserByAcctName(accountName);
 	}
 
 }

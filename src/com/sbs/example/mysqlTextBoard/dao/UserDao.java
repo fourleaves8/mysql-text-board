@@ -6,13 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import com.sbs.example.mysqlTextBoard.dto.User;
 
 public class UserDao {
 
-	public int add(String accountName, String accountPW, String name) {
+	public int add(String accountName, String accountPw, String name) {
 		int id = 0;
 		Connection con = null;
 
@@ -47,7 +46,7 @@ public class UserDao {
 			try {
 				PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				pstmt.setString(1, accountName);
-				pstmt.setString(2, accountPW);
+				pstmt.setString(2, accountPw);
 				pstmt.setString(3, name);
 
 				pstmt.executeUpdate();
