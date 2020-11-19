@@ -19,20 +19,78 @@ public class UserController {
 		if (cmd.equals("user join")) {
 			doJoin();
 		}
-
 	}
 
 	private void doJoin() {
 		System.out.println("== 회원 가입 ==");
-		System.out.printf("사용하실 아이디 : ");
-		String accountName = sc.nextLine();
-		System.out.printf("사용하실 비밀번호 : ");
-		String accountPW = sc.nextLine();
-		System.out.printf("이름 : ");
-		String name = sc.nextLine();
+		int maxFailCount = 3;
+		int failCount = 0;
+		String accountName;
+		String accountPW;
+		String name;
 
-		int id = userService.doJoin(accountName, accountPW, name);
-		System.out.printf("%d번 회원이 생성되었습니다.\n", id);
+		while (true) {
+			if (failCount >= maxFailCount) {
+				System.out.println("회원가입을 취소합니다.");
+				return;
+			}
+
+			System.out.printf("사용하실 아이디 : ");
+			accountName = sc.nextLine().trim();
+
+			boolean isValidAcctName = userService.isValidAcctName(accountName);
+			if (isValidAcctName == false) {
+				failCount++;
+				System.out.printf("%s는 이미 사용중인 아이디입니다.\n", accountName);
+				continue;
+
+			} else if (accountName.length() == 0) {
+				failCount++;
+				System.out.println("이이디를 입력해주세요.");
+				continue;
+			}
+			failCount = 0;
+			break;
+		}
+
+		while (true) {
+			if (failCount >= maxFailCount) {
+				System.out.println("회원가입을 취소합니다.");
+				return;
+			}
+
+			System.out.printf("사용하실 비밀번호 : ");
+			accountPW = sc.nextLine().trim();
+
+			if (accountPW.length() == 0) {
+				failCount++;
+				System.out.println("비밀번호를 입력해주세요.");
+				continue;
+			}
+			failCount = 0;
+			break;
+		}
+
+		while (true) {
+			if (failCount >= maxFailCount) {
+				System.out.println("회원가입을 취소합니다.");
+				return;
+			}
+
+			System.out.printf("이름 : ");
+			name = sc.nextLine().trim();
+
+			if (name.length() == 0) {
+				failCount++;
+				System.out.println("이름을 입력해주세요.");
+				continue;
+			}
+			failCount = 0;
+			break;
+		}
+
+		userService.doJoin(accountName, accountPW, name);
+		System.out.printf("환영합니다 %s님!\n회원가입에 성공하였습니다.\n", name);
 	}
 
 }
