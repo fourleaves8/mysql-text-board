@@ -32,7 +32,7 @@ public class UserController {
 		String name = sc.nextLine();
 
 		int id = userService.doJoin(accountName, accountPW, name);
-		System.out.printf("%d번 회원이 생성되었습니다", id);
+		System.out.printf("%d번 회원이 생성되었습니다.\n", id);
 	}
 
 }
