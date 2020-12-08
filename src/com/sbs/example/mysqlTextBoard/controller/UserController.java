@@ -6,7 +6,7 @@ import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.User;
 import com.sbs.example.mysqlTextBoard.service.UserService;
 
-public class UserController {
+public class UserController extends Controller {
 
 	private Scanner sc;
 	private UserService userService;
@@ -63,7 +63,7 @@ public class UserController {
 
 			System.out.printf("사용하실 비밀번호 : ");
 			accountPw = sc.nextLine().trim();
-						
+
 			if (accountPw.length() == 0) {
 				failCount++;
 				System.out.println("비밀번호를 입력해주세요.");

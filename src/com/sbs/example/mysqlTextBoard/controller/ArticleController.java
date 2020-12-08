@@ -7,7 +7,7 @@ import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.service.ArticleService;
 
-public class ArticleController {
+public class ArticleController extends Controller{
 
 	private ArticleService articleService;
 	private Scanner sc;
