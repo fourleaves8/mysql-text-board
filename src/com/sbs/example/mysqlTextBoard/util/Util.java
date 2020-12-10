@@ -29,4 +29,17 @@ public class Util {
 
 	}
 
+	public static void rmdir(String path) {
+		File dir = new File(path);
+		File[] allContents = dir.listFiles();
+
+		if (allContents != null) {
+			for (File file : allContents) {
+				file.delete();
+			}
+		}
+		dir.delete();
+
+	}
+
 }

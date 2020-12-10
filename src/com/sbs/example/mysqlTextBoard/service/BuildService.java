@@ -15,8 +15,9 @@ public class BuildService {
 	}
 
 	public void buildsite() {
-		System.out.println("site/article 폴더 생성");
-		Util.mkdirs("site/article");
+		System.out.println("site 폴더 생성");
+		Util.rmdir("site");
+		Util.mkdirs("site");
 		
 		List<Article> articles = articleService.showList();
 		
@@ -29,7 +30,7 @@ public class BuildService {
 			sb.append("<head>");
 			sb.append("<meta charset=\"UTF-8\">");
 			sb.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-			sb.append("<title>게시물 상세페이지 - " + article.title + "<title>");
+			sb.append("<title>게시물 상세페이지 - " + article.title + "</title>");
 			sb.append("</head>");
 			
 			sb.append("<body>");
@@ -50,8 +51,8 @@ public class BuildService {
 			
 			sb.append("</html>");
 			
-			String fileName = article.id + ".html";
-			String filePath = "site/article/" + fileName;
+			String fileName = "article_detail_"+ article.id + ".html";
+			String filePath = "site/" + fileName;
 			String body = sb.toString();
 			Util.fileWriter(filePath, body);
 			System.out.println(filePath + "가 생성되었습니다.");
