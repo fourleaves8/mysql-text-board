@@ -1,5 +1,6 @@
 package com.sbs.example.mysqlTextBoard.service;
 
+import java.io.File;
 import java.util.List;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
@@ -17,7 +18,7 @@ public class BuildService {
 	public void buildsite() {
 
 		System.out.println("site 폴더 생성");
-		Util.rmdir("site");
+		Util.rmdir(new File("site"));
 		Util.mkdirs("site");
 
 		List<Article> articles = articleService.showList();
@@ -58,7 +59,7 @@ public class BuildService {
 			String body = sb.toString();
 
 			Util.fileWriter(filePath, body);
-			System.out.println(filePath + "가 생성되었습니다.");
+			System.out.println(filePath + "가 생성되었습니다."); 
 
 		}
 	}
