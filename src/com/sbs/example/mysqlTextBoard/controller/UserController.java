@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.User;
 import com.sbs.example.mysqlTextBoard.service.UserService;
+import com.sbs.example.mysqlTextBoard.session.Session;
 
 public class UserController extends Controller {
 
@@ -21,7 +22,36 @@ public class UserController extends Controller {
 			doJoin();
 		} else if (cmd.equals("user login")) {
 			doLogin();
+		} else if (cmd.equals("user logout")) {
+			doLogout();
+		} else if (cmd.equals("user whoami")) {
+			showWhoami();
+		} else {
+			System.out.println("올바른 명령어를 입력하세요.");
 		}
+	}
+
+	private void showWhoami() {
+		System.out.println("== 회원 확인 ==");
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
+		int loginedUserId = Container.session.getLoginedUserId();
+		User user = userService.getUserById(loginedUserId);
+		System.out.printf("회원번호 : %d\n", user.id);
+		System.out.printf("가입일 : %s\n", user.regDate);
+		System.out.printf("아이디 : %s\n", user.accountName);
+		System.out.printf("이름 : %s\n", user.name);
+	}
+
+	private void doLogout() {
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
+		Container.session.doLogout();
+		System.out.println("로그아웃 되었습니다.");
 	}
 
 	private void doLogin() {
@@ -61,7 +91,7 @@ public class UserController extends Controller {
 				return;
 			}
 
-			System.out.printf("사용하실 비밀번호 : ");
+			System.out.printf("비밀번호 : ");
 			accountPw = sc.nextLine().trim();
 
 			if (accountPw.length() == 0) {
@@ -75,6 +105,7 @@ public class UserController extends Controller {
 			}
 			break;
 		}
+		Container.session.login(user.id);
 		System.out.printf("로그인 성공! %s님 환영합니다.\n", user.name);
 	}
 
