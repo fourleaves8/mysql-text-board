@@ -16,31 +16,23 @@ public class BuildService {
 	}
 
 	public void buildsite() {
+		String dirPath = "site";
+		String headerTemplatePath = "site_template/head.html";
+		String footerTemplatePath = "site_template/foot.html";
 
-		System.out.println("site 폴더 생성");
-		Util.rmdir(new File("site"));
-		Util.mkdirs("site");
+		Util.rmdir(new File(dirPath));
+		Util.mkdirs(dirPath);
+
+		String head = Util.getFileTemplate(new File(headerTemplatePath));
+		String foot = Util.getFileTemplate(new File(footerTemplatePath));
 
 		List<Article> articles = articleService.showList();
 
 		for (Article article : articles) {
 			StringBuilder sb = new StringBuilder();
-
-			sb.append("<!DOCTYPE html>");
-			sb.append("<html lang=\"ko\">");
-
-			sb.append("<head>");
-			sb.append("<meta charset=\"UTF-8\">");
-			sb.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-			sb.append("<title>게시물 상세페이지 - " + article.title + "</title>");
-			sb.append("</head>");
-
-			sb.append("<body>");
-
-			sb.append("<h1>게시물 상세페이지</h1>");
-
-			sb.append("<div>");
-
+			
+			sb.append(head);
+		
 			sb.append("번호 : " + article.id + "<br>");
 			sb.append("생성날짜 : " + article.regDate + "<br>");
 			sb.append("갱신날짜 : " + article.updateDate + "<br>");
@@ -49,17 +41,15 @@ public class BuildService {
 
 			sb.append("</div>");
 
-			sb.append("</body>");
-
-			sb.append("</html>");
-
+			sb.append(foot);
+			
 			String fileName = "article_detail_" + article.id + ".html";
 			String filePath = "site/" + fileName;
 
 			String body = sb.toString();
 
 			Util.fileWriter(filePath, body);
-			System.out.println(filePath + "가 생성되었습니다."); 
+			System.out.println(filePath + "가 생성되었습니다.");
 
 		}
 	}
