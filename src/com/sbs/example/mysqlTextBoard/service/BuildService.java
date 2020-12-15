@@ -33,11 +33,15 @@ public class BuildService {
 			
 			sb.append(head);
 		
+			sb.append("<div>");
+			
 			sb.append("번호 : " + article.id + "<br>");
 			sb.append("생성날짜 : " + article.regDate + "<br>");
 			sb.append("갱신날짜 : " + article.updateDate + "<br>");
 			sb.append("제목 : " + article.title + "<br>");
 			sb.append("내용 : " + article.body + "<br>");
+			sb.append("<a href=\"article_detail_" + (article.id - 1) + ".html\">이전글</a><br>");
+			sb.append("<a href=\"article_detail_" + (article.id + 1) + ".html\">다음글</a><br>");
 
 			sb.append("</div>");
 
