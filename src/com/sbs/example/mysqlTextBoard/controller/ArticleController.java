@@ -5,31 +5,36 @@ import java.util.Scanner;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
+import com.sbs.example.mysqlTextBoard.dto.User;
 import com.sbs.example.mysqlTextBoard.service.ArticleService;
+import com.sbs.example.mysqlTextBoard.service.UserService;
 
-public class ArticleController extends Controller{
+public class ArticleController extends Controller {
 
 	private ArticleService articleService;
+	private UserService userService;
 	private Scanner sc;
+	
 
 	public ArticleController() {
 		articleService = Container.articleService;
+		userService = Container.userService;
 		sc = Container.sc;
 	}
 
 	public void doCmd(String cmd) {
 		if (cmd.equals("article list")) {
-			showList();
+			showList(cmd);
 		} else if (cmd.startsWith("article detail ")) {
 			showDetail(cmd);
 		} else if (cmd.startsWith("article delete ")) {
 			doDelete(cmd);
 		} else if (cmd.equals("article write")) {
-			doWrite();
+			doWrite(cmd);
 		}
 	}
 
-	private void doWrite() {
+	private void doWrite(String cmd) {
 		System.out.println("== 게시물 작성 ==");
 		System.out.printf("제목 : ");
 		String title = sc.nextLine();
@@ -54,16 +59,25 @@ public class ArticleController extends Controller{
 		System.out.println("== 게시물 상세 ==");
 		int inputId = Integer.parseInt(cmd.split(" ")[2]);
 		Article article = articleService.getArticle(inputId);
+
+		if (article == null) {
+			System.out.println("존재하지 않는 게시물입니다.");
+			return;
+		}
+
+		User user = userService.getUserById(article.userId);
+		String writer = user.name;
+
 		System.out.printf("번호 : %d\n", article.id);
 		System.out.printf("작성일 : %s\n", article.regDate);
 		System.out.printf("수정일 : %s\n", article.updateDate);
-		System.out.printf("작성자 : %s\n", article.userId);
+		System.out.printf("작성자 : %s\n", writer);
 		System.out.printf("제목 : %s\n", article.title);
 		System.out.printf("내용 : %s\n", article.body);
-
+		
 	}
 
-	private void showList() {
+	private void showList(String cmd) {
 		System.out.println("== 게시물 리스트 ==");
 		List<Article> articles = articleService.showList();
 		System.out.println("번호 / 작성 / 수정 / 작성자 / 제목");

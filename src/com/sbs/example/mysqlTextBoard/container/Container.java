@@ -22,11 +22,11 @@ public class Container {
 	public static UserDao userDao;
 	public static UserService userService;
 	public static Controller userController;
+
 	public static Controller buildController;
-	
+
 	public static BuildService buildService;
 
-	
 	static {
 		sc = new Scanner(System.in);
 
@@ -37,10 +37,10 @@ public class Container {
 		userDao = new UserDao();
 		userService = new UserService();
 		userController = new UserController();
-		
+
 		buildService = new BuildService();
 		buildController = new BuildController();
-		
+
 	}
 
 }

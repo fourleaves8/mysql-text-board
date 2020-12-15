@@ -28,4 +28,8 @@ public class UserService {
 		return userDao.getUserByAcctName(accountName);
 	}
 
+	public User getUserById(int id) {
+		return userDao.getUserById(id);
+	}
+
 }
