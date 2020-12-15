@@ -29,16 +29,15 @@ public class Container {
 
 	static {
 		sc = new Scanner(System.in);
-
-		articleDao = new ArticleDao();
-		articleService = new ArticleService();
-		articleController = new ArticleController();
-
 		userDao = new UserDao();
-		userService = new UserService();
-		userController = new UserController();
+		articleDao = new ArticleDao();
 
+		userService = new UserService();
+		articleService = new ArticleService();
 		buildService = new BuildService();
+
+		userController = new UserController();
+		articleController = new ArticleController();
 		buildController = new BuildController();
 
 	}
