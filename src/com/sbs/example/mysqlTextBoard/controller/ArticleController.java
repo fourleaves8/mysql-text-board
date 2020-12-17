@@ -30,17 +30,54 @@ public class ArticleController extends Controller {
 			doDelete(cmd);
 		} else if (cmd.equals("article write")) {
 			doWrite(cmd);
+		} else if (cmd.startsWith("article modify ")) {
+			doModify(cmd);
 		} else {
 			System.out.println("올바른 명령어를 입력하세요.");
 		}
 	}
 
-	private void doWrite(String cmd) {
+	private void doModify(String cmd) {
+		System.out.println("== 게시물 수정 ==");
+
 		if (Container.session.islogined() == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
+
+		int inputId = Integer.parseInt(cmd.split(" ")[2]);
+		Article article = articleService.getArticle(inputId);
+
+		if (article == null) {
+			System.out.println("존재하지 않는 게시물입니다.");
+			return;
+		}
+
+		User user = userService.getUserById(article.userId);
+		String writer = user.name;
+
+		System.out.printf("번호 : %d\n", article.id);
+		System.out.printf("작성일 : %s\n", article.regDate);
+		System.out.printf("작성자 : %s\n", writer);
+
+		System.out.printf("제목 : ");
+		String title = sc.nextLine();
+		System.out.printf("내용  : ");
+		String body = sc.nextLine();
+
+		articleService.doModify(inputId, title, body);
+		System.out.printf("%s번 게시물이 수정되었습니다.\n", inputId);
+
+	}
+
+	private void doWrite(String cmd) {
 		System.out.println("== 게시물 작성 ==");
+
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
+
 		System.out.printf("제목 : ");
 		String title = sc.nextLine();
 		System.out.printf("내용  : ");
@@ -54,22 +91,26 @@ public class ArticleController extends Controller {
 	}
 
 	private void doDelete(String cmd) {
+		System.out.println("== 게시물 삭제 ==");
+
 		if (Container.session.islogined() == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-		System.out.println("== 게시물 삭제 ==");
+
 		int inputId = Integer.parseInt(cmd.split(" ")[2]);
 		articleService.doDelete(inputId);
 		System.out.printf("%d번 게시물이 삭제되었습니다.\n", inputId);
 	}
 
 	private void showDetail(String cmd) {
+		System.out.println("== 게시물 상세 ==");
+
 		if (Container.session.islogined() == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-		System.out.println("== 게시물 상세 ==");
+
 		int inputId = Integer.parseInt(cmd.split(" ")[2]);
 		Article article = articleService.getArticle(inputId);
 
@@ -91,8 +132,8 @@ public class ArticleController extends Controller {
 	}
 
 	private void showList(String cmd) {
-
 		System.out.println("== 게시물 리스트 ==");
+
 		List<Article> articles = articleService.getArticlesForPrintOut();
 
 		System.out.println("번호 / 작성 / 수정 / 작성자 / 제목");

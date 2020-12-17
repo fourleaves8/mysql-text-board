@@ -35,4 +35,8 @@ public class ArticleService {
 		return articleDao.getArticlesForPrintOut();
 	}
 
+	public void doModify(int id, String title, String body) {
+		articleDao.modify(id, title, body);
+	}
+
 }

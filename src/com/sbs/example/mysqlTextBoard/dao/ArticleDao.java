@@ -3,9 +3,7 @@ package com.sbs.example.mysqlTextBoard.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -94,66 +92,17 @@ public class ArticleDao {
 	}
 
 	public int add(String title, String body, int userId, int boardId) {
-		int id = 0;
-		Connection con = null;
+		SecSql sql = new SecSql();
 
-		try {
-			String dbmsJdbcUrl = "jdbc:mysql://localhost:3306/textBoard?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
-			String dbmsJdbcLoginId = "sbsst";
-			String dbmsJdbcLoginPw = "sbs123414";
+		sql.append("INSERT INTO article");
+		sql.append("SET regDate = NOW(),");
+		sql.append("updateDate = NOW(),");
+		sql.append("title = ?,", title);
+		sql.append("body = ?,", body);
+		sql.append("userId = ?,", userId);
+		sql.append("boardId = ?", boardId);
 
-			// MySQL 드라이버 등록
-			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			}
-
-			// 연결 생성
-			try {
-				con = DriverManager.getConnection(dbmsJdbcUrl, dbmsJdbcLoginId, dbmsJdbcLoginPw);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-
-			}
-
-			String sql = "INSERT INTO article";
-			sql += " SET regDate = NOW(),";
-			sql += " updateDate = NOW(),";
-			sql += " title = ?,";
-			sql += " body = ?,";
-			sql += " userId = ?,";
-			sql += " boardId = ?";
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				pstmt.setString(1, title);
-				pstmt.setString(2, body);
-				pstmt.setInt(3, userId);
-				pstmt.setInt(4, boardId);
-
-				pstmt.executeUpdate();
-
-				ResultSet rs = pstmt.getGeneratedKeys();
-				if (rs.next()) {
-					id = rs.getInt(1);
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return id;
+		return MysqlUtil.insert(sql);
 	}
 
 	public List<Article> getArticlesForPrintOut() {
@@ -172,5 +121,16 @@ public class ArticleDao {
 			articles.add(new Article(articleMap));
 		}
 		return articles;
+	}
+
+	public void modify(int id, String title, String body) {
+		SecSql sql = new SecSql();
+		sql.append("UPDATE `article`");
+		sql.append("SET updateDate = NOW(),");
+		sql.append("title = ?,", title);
+		sql.append("`body` = ?", body);
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
 	}
 }
