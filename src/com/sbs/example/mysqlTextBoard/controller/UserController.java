@@ -5,7 +5,6 @@ import java.util.Scanner;
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.User;
 import com.sbs.example.mysqlTextBoard.service.UserService;
-import com.sbs.example.mysqlTextBoard.session.Session;
 
 public class UserController extends Controller {
 
@@ -59,8 +58,8 @@ public class UserController extends Controller {
 		if (Container.session.islogined()) {
 			int LoginedUserId = Container.session.getLoginedUserId();
 			User user = userService.getUserById(LoginedUserId);
-			System.out.printf("현재 %s님께서 이미 로그인되어있습니다.\n", user.name);
-			System.out.println("**다른 계정으로 로그인하시려면 로그아웃을 먼저 진행해주세요.**");
+			System.out.printf("%s 님으로 로그인되어있습니다.\n", user.name);
+			System.out.println("*** 로그아웃 후 재시도 해주세요. ***");
 			return;
 		}
 		int failCount = 0;
@@ -122,8 +121,8 @@ public class UserController extends Controller {
 		if (Container.session.islogined()) {
 			int LoginedUserId = Container.session.getLoginedUserId();
 			User user = userService.getUserById(LoginedUserId);
-			System.out.printf("현재 %s님께서 이미 로그인되어있습니다.\n", user.name);
-			System.out.println("**회원가입을 하시려면 로그아웃을 먼저 진행해주세요.**");
+			System.out.printf("%s 님으로 로그인되어있습니다.\n", user.name);
+			System.out.println("*** 로그아웃 후 재시도 해주세요. ***");
 			return;
 		}
 

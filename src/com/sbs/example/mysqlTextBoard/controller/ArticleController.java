@@ -30,6 +30,8 @@ public class ArticleController extends Controller {
 			doDelete(cmd);
 		} else if (cmd.equals("article write")) {
 			doWrite(cmd);
+		} else {
+			System.out.println("올바른 명령어를 입력하세요.");
 		}
 	}
 
@@ -89,10 +91,7 @@ public class ArticleController extends Controller {
 	}
 
 	private void showList(String cmd) {
-		if (Container.session.islogined() == false) {
-			System.out.println("로그인 후 이용해주세요.");
-			return;
-		}
+
 		System.out.println("== 게시물 리스트 ==");
 		List<Article> articles = articleService.getArticlesForPrintOut();
 
