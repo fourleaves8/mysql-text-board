@@ -44,4 +44,18 @@ public class ArticleService {
 		return articleDao.getBoardByCode(boardCode);
 	}
 
+	public int makeBoard(String name, String code) {
+		return articleDao.makeBoard(name, code);
+	}
+
+	public boolean isValidBoardCode(String code) {
+		Board board = articleDao.getBoardByCode(code);
+		return board == null;
+	}
+
+	public boolean isValidBoardName(String name) {
+		Board board = articleDao.getBoardByName(name);
+		return board == null;
+	}
+
 }

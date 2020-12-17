@@ -25,4 +25,12 @@ public class User {
 				+ ", regDate=" + regDate + ", updateDate=" + updateDate + "]";
 	}
 
+	public String getType() {
+		return isAdmin() ? "관리자" : "일반";
+	}
+
+	public boolean isAdmin() {
+		return accountName.equals("test1");
+	}
+
 }

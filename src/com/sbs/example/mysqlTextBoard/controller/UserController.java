@@ -42,6 +42,7 @@ public class UserController extends Controller {
 		System.out.printf("가입일 : %s\n", user.regDate);
 		System.out.printf("아이디 : %s\n", user.accountName);
 		System.out.printf("이름 : %s\n", user.name);
+		System.out.printf("회원종류 : %s\n", user.getType());
 	}
 
 	private void doLogout() {
