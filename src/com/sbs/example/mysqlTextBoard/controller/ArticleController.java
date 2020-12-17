@@ -34,13 +34,17 @@ public class ArticleController extends Controller {
 	}
 
 	private void doWrite(String cmd) {
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
 		System.out.println("== 게시물 작성 ==");
 		System.out.printf("제목 : ");
 		String title = sc.nextLine();
 		System.out.printf("내용  : ");
 		String body = sc.nextLine();
 
-		int userId = 2; // 임시
+		int userId = Container.session.getLoginedUserId();
 		int boardId = 1; // 임시
 
 		int id = articleService.doWrite(title, body, userId, boardId);
@@ -48,6 +52,10 @@ public class ArticleController extends Controller {
 	}
 
 	private void doDelete(String cmd) {
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
 		System.out.println("== 게시물 삭제 ==");
 		int inputId = Integer.parseInt(cmd.split(" ")[2]);
 		articleService.doDelete(inputId);
@@ -55,6 +63,10 @@ public class ArticleController extends Controller {
 	}
 
 	private void showDetail(String cmd) {
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
 		System.out.println("== 게시물 상세 ==");
 		int inputId = Integer.parseInt(cmd.split(" ")[2]);
 		Article article = articleService.getArticle(inputId);
@@ -77,6 +89,10 @@ public class ArticleController extends Controller {
 	}
 
 	private void showList(String cmd) {
+		if (Container.session.islogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
 		System.out.println("== 게시물 리스트 ==");
 		List<Article> articles = articleService.getArticlesForPrintOut();
 

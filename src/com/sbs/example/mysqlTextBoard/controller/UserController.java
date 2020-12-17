@@ -56,6 +56,13 @@ public class UserController extends Controller {
 
 	private void doLogin() {
 		System.out.println("== 회원 로그인 ==");
+		if (Container.session.islogined()) {
+			int LoginedUserId = Container.session.getLoginedUserId();
+			User user = userService.getUserById(LoginedUserId);
+			System.out.printf("현재 %s님께서 이미 로그인되어있습니다.\n", user.name);
+			System.out.println("**다른 계정으로 로그인하시려면 로그아웃을 먼저 진행해주세요.**");
+			return;
+		}
 		int failCount = 0;
 		int maxFailCount = 3;
 		String accountName = "";
@@ -68,7 +75,7 @@ public class UserController extends Controller {
 				return;
 			}
 
-			System.out.printf("회원 아이디 : ");
+			System.out.printf("회원아이디 : ");
 			accountName = sc.nextLine().trim();
 			user = userService.getUserByAcctName(accountName);
 
@@ -111,6 +118,15 @@ public class UserController extends Controller {
 
 	private void doJoin() {
 		System.out.println("== 회원 가입 ==");
+
+		if (Container.session.islogined()) {
+			int LoginedUserId = Container.session.getLoginedUserId();
+			User user = userService.getUserById(LoginedUserId);
+			System.out.printf("현재 %s님께서 이미 로그인되어있습니다.\n", user.name);
+			System.out.println("**회원가입을 하시려면 로그아웃을 먼저 진행해주세요.**");
+			return;
+		}
+
 		int maxFailCount = 3;
 		int failCount = 0;
 		String accountName;
