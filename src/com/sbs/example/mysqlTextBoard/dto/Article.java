@@ -11,6 +11,7 @@ public class Article {
 	public String body;
 	public int userId;
 	public int boardId;
+	public String userName;
 
 	public Article(Map<String, Object> articleMap) {
 		this.id = (int) articleMap.get("id");
@@ -20,6 +21,10 @@ public class Article {
 		this.body = (String) articleMap.get("body");
 		this.userId = (int) articleMap.get("userId");
 		this.boardId = (int) articleMap.get("boardId");
+		if(articleMap.containsKey("userName")) {
+			this.userName = (String) articleMap.get("userName");	
+		}
+		
 
 	}
 

@@ -36,8 +36,8 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3',
-userId = 1,
-boardId = 1;
+userId = 2,
+boardId = 2;
 
 # 회원 테이블 생성
 CREATE TABLE `user` (
@@ -63,3 +63,6 @@ updateDate = NOW(),
 accountName = 'test2',
 accountPw = 'test2',
 `name` = '테스터2'; 
+
+SELECT * FROM `article`;
+SELECT * FROM `user`;
