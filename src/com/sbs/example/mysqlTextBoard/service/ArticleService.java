@@ -31,4 +31,8 @@ public class ArticleService {
 		return articleDao.add(title, body, userId, boardId);
 	}
 
+	public List<Article> getArticlesForPrintOut() {
+		return articleDao.getArticlesForPrintOut();
+	}
+
 }

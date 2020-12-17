@@ -78,7 +78,7 @@ public class ArticleController extends Controller {
 
 	private void showList(String cmd) {
 		System.out.println("== 게시물 리스트 ==");
-		List<Article> articles = articleService.showList();
+		List<Article> articles = articleService.getArticlesForPrintOut();
 
 		System.out.println("번호 / 작성 / 수정 / 작성자 / 제목");
 		for (Article article : articles) {
