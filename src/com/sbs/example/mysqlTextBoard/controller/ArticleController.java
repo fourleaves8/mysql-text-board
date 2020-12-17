@@ -97,8 +97,14 @@ public class ArticleController extends Controller {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-
 		int inputId = Integer.parseInt(cmd.split(" ")[2]);
+		Article article = articleService.getArticle(inputId);
+
+		if (article == null) {
+			System.out.println("존재하지 않는 게시물입니다.");
+			return;
+		}
+
 		articleService.doDelete(inputId);
 		System.out.printf("%d번 게시물이 삭제되었습니다.\n", inputId);
 	}

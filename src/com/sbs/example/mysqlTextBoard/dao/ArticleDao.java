@@ -1,9 +1,5 @@
 package com.sbs.example.mysqlTextBoard.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,51 +40,12 @@ public class ArticleDao {
 	}
 
 	public void remove(int inputId) {
-		Connection con = null;
+		SecSql sql = new SecSql();
 
-		try {
-			String dbmsJdbcUrl = "jdbc:mysql://localhost:3306/textBoard?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
-			String dbmsJdbcLoginId = "sbsst";
-			String dbmsJdbcLoginPw = "sbs123414";
+		sql.append("DELETE FROM `article`");
+		sql.append("WHERE id = ?", inputId);
 
-			// MySQL 드라이버 등록
-			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			}
-
-			// 연결 생성
-			try {
-				con = DriverManager.getConnection(dbmsJdbcUrl, dbmsJdbcLoginId, dbmsJdbcLoginPw);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-
-			}
-
-			String sql = "DELETE FROM article";
-			sql += " WHERE id = ?";
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, inputId);
-				pstmt.executeUpdate();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
+		MysqlUtil.delete(sql);
 	}
 
 	public int add(String title, String body, int userId, int boardId) {
