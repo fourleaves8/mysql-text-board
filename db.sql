@@ -62,7 +62,27 @@ SET regDate = NOW(),
 updateDate = NOW(),
 accountName = 'test2',
 accountPw = 'test2',
-`name` = '테스터2'; 
+`name` = '테스터2';
 
-SELECT * FROM `article`;
-SELECT * FROM `user`;
+# 게시판 테이블 생성
+CREATE TABLE `board` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `name` CHAR(30) NOT NULL,
+    `code` CHAR(30) NOT NULL
+);
+
+#공지사항 게시판 추가
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`name` = '공지사항',
+`code` = 'notice';
+
+# 자유게시물 게시판 추가
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`name` = '자유',
+`code` = 'free';
