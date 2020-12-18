@@ -4,237 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>게시물 상세페이지</title>
-<!-- 폰트어썸 불러오기 -->
+
+<!-- loading fontawsome begins -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<!-- loading fontawsome ends -->
 
-<style>
-/* 폰트 */
-@font-face {
-	font-family: 'LotteMartDream';
-	font-style: normal;
-	font-weight: 400;
-	src:
-		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2')
-		format('woff2'),
-		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff')
-		format('woff');
-}
-
-@font-face {
-	font-family: 'LotteMartDream';
-	font-style: normal;
-	font-weight: 700;
-	src:
-		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2')
-		format('woff2'),
-		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff')
-		format('woff');
-}
-
-@font-face {
-	font-family: 'LotteMartDream';
-	font-style: normal;
-	font-weight: 300;
-	src:
-		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2')
-		format('woff2'),
-		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff')
-		format('woff');
-}
-
-html {
-	font-family: 'LotteMartDream', sans-serif;
-}
-
-/*normalize*/
-body, ul, li {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-/*lib*/
-.bd-red {
-	border: 3px solid red;
-}
-
-.bd-yellow {
-	border: 3px solid yellow;
-}
-
-.bd-green {
-	border: 3px solid lightgreen;
-}
-
-.bd-blue {
-	border: 3px solid blue;
-}
-
-.bd-pink {
-	border: 3px solid pink;
-}
-
-.flex {
-	display: flex;
-}
-
-.flex-jc-c {
-	justify-content: center;
-}
-
-.flex-ai-c {
-	align-items: center;
-}
-
-.con {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.height-100p {
-	height: 100%
-}
-
-.block {
-	display: block;
-}
-/*custom*/
-.con-min-width {
-	min-width: 1200px;
-}
-
-.con {
-	width: 1200px;
-}
-
-/*로고바 시작*/
-.logo-bar {
-	background-color: black;
-	color: white;
-	height: 150px;
-}
-/*로고바 끝*/
-
-/*로고 시작*/
-.logo {
-	font-size: 4rem;
-}
-
-.logo>span>span {
-	color: brown;
-}
-
-.logo>i {
-	color: brown;
-	margin-right: 15px;
-}
-/*로고 끝*/
-
-/*메뉴바 시작*/
-.menu-bar {
-	background-color: black;
-	color: white;
-}
-
-.menu-bar__menu-1>ul>li {
-	width: 25%;
-	position: relative;
-}
-
-.menu-bar__menu-1 ul>li>a {
-	text-align: center;
-	padding: 20px 0px;
-}
-
-.menu-bar__menu-1 ul ul {
-	display: none;
-	position: absolute;
-	top: 100%;
-	left: -4px;
-	width: 100%;
-	background-color: black;
-	border: 4px solid black;
-	border-radius: 0 0 10px 10px;
-}
-
-.menu-bar__menu-1>ul>li:hover>a {
-	border-radius: 15px 15px 0 0;
-}
-
-.menu-bar__menu-1 ul>li:hover>a {
-	background-color: white;
-	color: brown;
-}
-
-.menu-bar__menu-1>ul>li:hover>ul {
-	display: block;
-}
-
-.menu-bar__menu-1>ul ul>li:hover>a {
-	text-decoration: underline;
-}
-
-.menu-bar__menu-1>ul ul>li:last-child>a {
-	border-radius: 0 0 7px 7px;
-}
-/*메뉴바 끝*/
-</style>
+<link rel="stylesheet" href="app.css" />
 </head>
 
 <body>
+	<div class="body-content flex flex-column min-height-100vh">
+  
+<!-- logobar begins -->
+<header class="logo-bar con-min-width">
+  <div class="con height-100p flex flex-jc-c">
+    <a href="#" class="logo flex flex-ai-c">
+      <i class="fas fa-hamburger"></i>
+      <span>Look<span>U</span>Blog</span>
+    </a>
+  </div>
+</header>
+<!-- logobar ends -->
 
-	<!--로고바 시작-->
-	<header class="logo-bar con-min-width">
-		<div class="con height-100p flex flex-jc-c">
-			<a href="#" class="logo flex flex-ai-c"> <i
-				class="fas fa-hamburger"></i> <span>Look<span>U</span>Cook
-			</span>
-			</a>
-		</div>
-	</header>
-	<!--로고바 끝-->
+<!-- menubar begins -->
+<header class="menu-bar con-min-width">
+  <div class="con height-100p">
+    <nav class="menu-bar__menu-1">
+      <ul class="flex">
+        <li>
+          <a href="" class="block">
+            <i class="fas fa-home"></i>
+            <span>HOME</span>
+          </a>
+        </li>
+        <li>
+          <a href="" class="block">
+            <i class="fas fa-book-open"></i>
+            <span>ARTICLES</span>
+          </a>
+          <ul>
+            <li>
+              <a href="" class="block">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Notice</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="block">
+                <i class="fas fa-comment-dots"></i>
+                <span>Free</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="block">
+            <i class="fas fa-link"></i>
+            <span>LINKS</span>
+          </a>
+          <ul>
+            <li>
+              <a href="" class="block">
+                <i class="fab fa-blogger-b"></i>
+                <span>Blog</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="block">
+                <i class="fab fa-github"></i>
+                <span>Github</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" class="block">
+            <i class="fas fa-chart-line"></i>
+            <span>STATISTICS</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<!-- menubar ends -->
 
-	<!--메뉴바 시작-->
-	<header class="menu-bar con-min-width">
-		<div class="con height-100p">
-			<nav class="menu-bar__menu-1">
-				<ul class="flex">
-					<li><a href="" class="block"> <i class="fas fa-home"></i>
-							<span>HOME</span>
-					</a></li>
-					<li><a href="" class="block"> <i class="fas fa-book-open"></i>
-							<span>ARTICLES</span>
-					</a>
-						<ul>
-							<li><a href="" class="block"> <i
-									class="fas fa-exclamation-circle"></i> <span>Notice</span>
-							</a></li>
-							<li><a href="" class="block"> <i
-									class="fas fa-comment-dots"></i> <span>Free</span>
-							</a></li>
-						</ul></li>
-					<li><a href="" class="block"> <i class="fas fa-link"></i>
-							<span>LINKS</span>
-					</a>
-						<ul>
-							<li><a href="" class="block"> <i
-									class="fab fa-blogger-b"></i> <span>Blog</span>
-							</a></li>
-							<li><a href="" class="block"> <i class="fab fa-github"></i>
-									<span>Github</span>
-							</a></li>
-						</ul></li>
-					<li><a href="" class="block"> <i class="fas fa-chart-line"></i>
-							<span>STATISTICS</span>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<!--메뉴바 끝-->
+<!-- main begins -->
+<main class="flex-grow-1">
+  <section class="title-bar con-min-width">
+    <h1 class="con">
+      <i class="fas fa-home"></i>
+      <span>HOME</span>
+    </h1>
+  </section>

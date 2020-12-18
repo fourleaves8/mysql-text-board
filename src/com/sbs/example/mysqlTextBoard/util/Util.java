@@ -3,15 +3,17 @@ package com.sbs.example.mysqlTextBoard.util;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Util {
 
-	public static void mkdirs(String filePath) {
+	public static void mkdir(String filePath) {
 		File dir = new File(filePath);
 		if (dir.exists() == false) {
-			dir.mkdirs();
+			dir.mkdir();
 		}
 	}
 
@@ -63,6 +65,41 @@ public class Util {
 		}
 
 		return rs;
+
+	}
+
+	public static void copy(String sourceDirPath, String targetDirPath) {
+		File sourceDir = new File(sourceDirPath);
+		File targetDir = new File(targetDirPath);
+
+		File[] sourceFile = sourceDir.listFiles();
+		for (File file : sourceFile) {
+			File targetFile = new File(targetDir.getAbsolutePath() + File.separator + file.getName());
+			if (file.isDirectory()) {
+				targetFile.mkdir();
+			} else {
+				FileInputStream fis = null;
+				FileOutputStream fos = null;
+
+				try {
+					fis = new FileInputStream(file);
+					fos = new FileOutputStream(targetFile);
+
+					int fileByte = 0;
+					while ((fileByte = fis.read()) == -1) {
+						fos.write(fileByte);
+					}
+					fis.close();
+					fos.close();
+
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
 
 	}
 }
