@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
+import com.sbs.example.mysqlTextBoard.dto.Board;
 import com.sbs.example.mysqlTextBoard.util.Util;
 
 public class BuildService {
@@ -17,7 +18,7 @@ public class BuildService {
 
 	public void buildsite() {
 		String dirPath = "site";
-		
+
 		Util.rmdir(new File(dirPath));
 		Util.mkdir(new File(dirPath));
 
@@ -27,12 +28,13 @@ public class BuildService {
 		File targetFile = new File(targetFilePath);
 
 		Util.copy(sourceFile, targetFile);
-		
+
 		String headerTemplatePath = "site_template/head.html";
 		String footerTemplatePath = "site_template/foot.html";
 
-		String head = Util.getFileTemplate(new File(headerTemplatePath));
-		String foot = Util.getFileTemplate(new File(footerTemplatePath));
+		String head = getHeadHtml(headerTemplatePath);
+
+		String foot = Util.getFileTemplate(footerTemplatePath);
 
 		List<Article> articles = articleService.showList();
 
@@ -64,6 +66,41 @@ public class BuildService {
 			System.out.println(filePath + "가 생성되었습니다.");
 
 		}
+	}
+
+	private String getHeadHtml(String headerTemplatePath) {
+		String head = Util.getFileTemplate(headerTemplatePath);
+		StringBuilder boardMenuContentsHtml = new StringBuilder();
+
+		List<Board> boards = articleService.getBoards();
+
+		for (Board board : boards) {
+			boardMenuContentsHtml.append("<li>");
+
+			String link = board.code + "-list-1.html";
+			boardMenuContentsHtml.append("<a href=\"" + link + "\" class=\"block\">");
+
+			String iClass = "far fa-clipboard";
+
+			if (board.code.contains("notice")) {
+				iClass = "fas fa-exclamation-circle";
+			} else if (board.code.contains("free")) {
+				iClass = "fas fa-comment-dots";
+			}
+
+			boardMenuContentsHtml.append("<i class=\"" + iClass + "\"></i>");
+
+			boardMenuContentsHtml.append("<span>");
+			boardMenuContentsHtml.append(board.name);
+			boardMenuContentsHtml.append("</span>");
+
+			boardMenuContentsHtml.append("</a>");
+			boardMenuContentsHtml.append("</li>");
+
+		}
+
+		head = head.replace("${menu-bar__menu-1__board-menu-contents}", boardMenuContentsHtml.toString());
+		return head;
 	}
 
 }

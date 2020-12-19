@@ -135,4 +135,19 @@ public class ArticleDao {
 
 	}
 
+	public List<Board> getBoards() {
+		List<Board> boards = new ArrayList<>();
+		SecSql sql = new SecSql();
+		sql.append("SELECT B.*");
+		sql.append("FROM `board` AS B");
+		sql.append("ORDER BY B.id DESC");
+
+		List<Map<String, Object>> boardMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> boardMap : boardMapList) {
+			boards.add(new Board(boardMap));
+		}
+		return boards;
+	}
+
 }

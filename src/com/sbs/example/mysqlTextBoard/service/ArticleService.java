@@ -58,4 +58,8 @@ public class ArticleService {
 		return board == null;
 	}
 
+	public List<Board> getBoards() {
+		return articleDao.getBoards();
+	}
+
 }
