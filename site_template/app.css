@@ -1,4 +1,4 @@
-/* ****font**** */
+/* font */
 @font-face {
   font-family: 'LotteMartDream';
   font-style: normal;
@@ -32,7 +32,7 @@ a{
   color:inherit;
 }
 
-/* ****lib**** */
+/*lib*/
 .flex{
   display:flex;   
 }
@@ -77,7 +77,7 @@ a{
   background-color:pink;
 }
 
-/* ****custom**** */
+/*custom*/
 .con-min-width{
   min-width:1200px;
 }
@@ -121,6 +121,8 @@ a{
 .menu-bar__menu-1 ul > li > a{
   text-align:center;
   padding:20px 0px;
+  font-weight:bold;
+  font-size: 1.2rem;
 }
 .menu-bar__menu-1 ul ul {
   display:none;
@@ -139,11 +141,13 @@ a{
   background-color:white;
   color: brown;
 }
+.menu-bar__menu-1 ul ul > li:hover>a {
+  background-color:brown;
+  color: springgreen;
+  
+}
 .menu-bar__menu-1>ul>li:hover>ul{
   display:block;
-}
-.menu-bar__menu-1>ul ul>li:hover>a {
-  text-decoration:underline;
 }
 .menu-bar__menu-1>ul ul>li:last-child>a {
   border-radius:0 0 7px 7px;

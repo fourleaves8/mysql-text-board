@@ -89,7 +89,7 @@ public class BuildService {
 			}
 
 			boardMenuContentsHtml.append("<i class=\"" + iClass + "\"></i>");
-
+			boardMenuContentsHtml.append(" ");
 			boardMenuContentsHtml.append("<span>");
 			boardMenuContentsHtml.append(board.name);
 			boardMenuContentsHtml.append("</span>");
