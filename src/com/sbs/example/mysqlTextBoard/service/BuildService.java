@@ -17,15 +17,19 @@ public class BuildService {
 
 	public void buildsite() {
 		String dirPath = "site";
+		
+		Util.rmdir(new File(dirPath));
+		Util.mkdir(new File(dirPath));
+
+		String sourceFilePath = "site_template/app.css";
+		String targetFilePath = "site/app.css";
+		File sourceFile = new File(sourceFilePath);
+		File targetFile = new File(targetFilePath);
+
+		Util.copy(sourceFile, targetFile);
+		
 		String headerTemplatePath = "site_template/head.html";
 		String footerTemplatePath = "site_template/foot.html";
-
-		String sourceDirPath = "site";
-		String targetDirPath = "site_template";
-
-		Util.rmdir(new File(dirPath));
-		Util.mkdir(dirPath);
-		Util.copy(sourceDirPath, targetDirPath);
 
 		String head = Util.getFileTemplate(new File(headerTemplatePath));
 		String foot = Util.getFileTemplate(new File(footerTemplatePath));

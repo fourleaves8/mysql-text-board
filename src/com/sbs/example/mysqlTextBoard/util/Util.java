@@ -10,8 +10,7 @@ import java.io.IOException;
 
 public class Util {
 
-	public static void mkdir(String filePath) {
-		File dir = new File(filePath);
+	public static void mkdir(File dir) {
 		if (dir.exists() == false) {
 			dir.mkdir();
 		}
@@ -68,38 +67,28 @@ public class Util {
 
 	}
 
-	public static void copy(String sourceDirPath, String targetDirPath) {
-		File sourceDir = new File(sourceDirPath);
-		File targetDir = new File(targetDirPath);
-
-		File[] sourceFile = sourceDir.listFiles();
-		for (File file : sourceFile) {
-			File targetFile = new File(targetDir.getAbsolutePath() + File.separator + file.getName());
-			if (file.isDirectory()) {
-				targetFile.mkdir();
-			} else {
-				FileInputStream fis = null;
-				FileOutputStream fos = null;
-
-				try {
-					fis = new FileInputStream(file);
-					fos = new FileOutputStream(targetFile);
-
-					int fileByte = 0;
-					while ((fileByte = fis.read()) == -1) {
-						fos.write(fileByte);
-					}
-					fis.close();
-					fos.close();
-
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			}
+	public static void copy(File sourceFile, File targetFile) {
+		File parentDir = targetFile.getParentFile();
+		if (parentDir.exists() == false) {
+			parentDir.mkdir();
 		}
+		try {
+			FileInputStream fis = new FileInputStream(sourceFile);
+			FileOutputStream fos = new FileOutputStream(targetFile);
+			int cnt = 0;
+			while ((cnt = fis.read()) != -1) {
+				fos.write(cnt);
+			}
+			fis.close();
+			fos.close();
 
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 	}
-}
+
+} // Util{}
