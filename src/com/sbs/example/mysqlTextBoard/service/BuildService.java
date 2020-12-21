@@ -17,27 +17,38 @@ public class BuildService {
 	}
 
 	public void buildsite() {
-		String dirPath = "site";
+		System.out.println("site 폴더 생성");
+		Util.rmdir(new File("site"));
+		Util.mkdir(new File("site"));
 
-		Util.rmdir(new File(dirPath));
-		Util.mkdir(new File(dirPath));
+		System.out.println("site/app.css 생성.");
+		Util.copy(new File("site_template/app.css"), new File("site/app.css"));
 
-		String sourceFilePath = "site_template/app.css";
-		String targetFilePath = "site/app.css";
-		File sourceFile = new File(sourceFilePath);
-		File targetFile = new File(targetFilePath);
+		bildIndexPage();
+		buildArticleDetailPages();
+	}
 
-		Util.copy(sourceFile, targetFile);
+	private void bildIndexPage() {
+		String head = getHeadHtml("index");
+		String foot = Util.getFileTemplate("site_template/foot.html");
+		String index = Util.getFileTemplate("site_template/index.html");
 
-		String headerTemplatePath = "site_template/head.html";
-		String footerTemplatePath = "site_template/foot.html";
+		StringBuilder sb = new StringBuilder();
+		sb.append(head);
+		sb.append(index);
+		sb.append(foot);
 
-		String head = getHeadHtml(headerTemplatePath);
+		String filePath = "site/index.html";
+		Util.fileWriter(filePath, sb.toString());
+		System.out.println(filePath + " 생성.");
+	}
 
-		String foot = Util.getFileTemplate(footerTemplatePath);
-
+	private void buildArticleDetailPages() {
 		List<Article> articles = articleService.showList();
 
+		String head = getHeadHtml("article_detail");
+		String foot = Util.getFileTemplate("site_template/foot.html");
+		// 게시물 상세 페이지 생성
 		for (Article article : articles) {
 			StringBuilder sb = new StringBuilder();
 
@@ -59,17 +70,14 @@ public class BuildService {
 
 			String fileName = "article_detail_" + article.id + ".html";
 			String filePath = "site/" + fileName;
-
-			String body = sb.toString();
-
-			Util.fileWriter(filePath, body);
-			System.out.println(filePath + "가 생성되었습니다.");
-
+			Util.fileWriter(filePath, sb.toString());
+			System.out.println(filePath + " 생성.");
 		}
+
 	}
 
-	private String getHeadHtml(String headerTemplatePath) {
-		String head = Util.getFileTemplate(headerTemplatePath);
+	private String getHeadHtml(String pageName) {
+		String head = Util.getFileTemplate("site_template/head.html");
 		StringBuilder boardMenuContentsHtml = new StringBuilder();
 
 		List<Board> boards = articleService.getBoards();
@@ -100,7 +108,19 @@ public class BuildService {
 		}
 
 		head = head.replace("${menu-bar__menu-1__board-menu-contents}", boardMenuContentsHtml.toString());
+
+		String titleBarContentsHtml = getTitleBarContentsByPageName(pageName);
+
+		head = head.replace("${title-bar__contents}", titleBarContentsHtml);
+
 		return head;
+	}
+
+	private String getTitleBarContentsByPageName(String pageName) {
+		if (pageName.equals("index")) {
+			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
+		}
+		return "";
 	}
 
 }
