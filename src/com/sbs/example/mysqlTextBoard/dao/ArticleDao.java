@@ -140,7 +140,7 @@ public class ArticleDao {
 		SecSql sql = new SecSql();
 		sql.append("SELECT B.*");
 		sql.append("FROM `board` AS B");
-		sql.append("ORDER BY B.id DESC");
+		sql.append("ORDER BY B.id");
 
 		List<Map<String, Object>> boardMapList = MysqlUtil.selectRows(sql);
 

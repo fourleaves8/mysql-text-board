@@ -88,19 +88,7 @@ public class BuildService {
 			String link = board.code + "-list-1.html";
 			boardMenuContentsHtml.append("<a href=\"" + link + "\" class=\"block\">");
 
-			String iClass = "far fa-clipboard";
-
-			if (board.code.contains("notice")) {
-				iClass = "fas fa-exclamation-circle";
-			} else if (board.code.contains("free")) {
-				iClass = "fas fa-comment-dots";
-			}
-
-			boardMenuContentsHtml.append("<i class=\"" + iClass + "\"></i>");
-			boardMenuContentsHtml.append(" ");
-			boardMenuContentsHtml.append("<span>");
-			boardMenuContentsHtml.append(board.name);
-			boardMenuContentsHtml.append("</span>");
+			boardMenuContentsHtml.append(getTitleBarContentsByPageName("article_list_" + board.code));
 
 			boardMenuContentsHtml.append("</a>");
 			boardMenuContentsHtml.append("</li>");
@@ -119,6 +107,14 @@ public class BuildService {
 	private String getTitleBarContentsByPageName(String pageName) {
 		if (pageName.equals("index")) {
 			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
+		} else if (pageName.startsWith("article_detail")) {
+			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
+		} else if (pageName.startsWith("article_list_notice")) {
+			return "<i class=\"fas fa-exclamation-circle\"></i> <span>NOTICE</span>";
+		} else if (pageName.startsWith("article_list_free")) {
+			return "<i class=\"fas fa-comment-dots\"></i> <span>FREE</span>";
+		} else if (pageName.startsWith("article_list_")) {
+			return "<i class=\"far fa-clipboard\"></i> <span>GENERAL</span>";
 		}
 		return "";
 	}
