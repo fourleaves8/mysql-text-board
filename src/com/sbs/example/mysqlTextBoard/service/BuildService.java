@@ -25,7 +25,50 @@ public class BuildService {
 		Util.copy(new File("site_template/app.css"), new File("site/app.css"));
 
 		bildIndexPage();
+		buildArticlelistPages();
 		buildArticleDetailPages();
+	}
+
+	private void buildArticlelistPages() {
+		List<Board> boards = articleService.getBoards();
+		String bodyTemplate = Util.getFileTemplate("site_template/article_list.html");
+		String foot = Util.getFileTemplate("site_template/foot.html");
+
+		for (Board board : boards) {
+			StringBuilder sb = new StringBuilder();
+			String head = getHeadHtml("article_list_" + board.code);
+			String body = bodyTemplate;
+
+			sb.append(head);
+
+			String fileName = "article_list_" + board.code + "_1.html";
+
+			List<Article> articles = articleService.getArticlesForPrintOut(board.id);
+
+			StringBuilder mainContents = new StringBuilder();
+			for (Article article : articles) {
+
+				String link = "article_detail_" + article.id + ".html";
+
+				mainContents.append("<div>");
+				mainContents.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
+				mainContents.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
+				mainContents.append("<div class=\"article-list__cell-writer\">" + article.userName + "</div>");
+				mainContents.append("<div class=\"article-list__cell-title\">");
+				mainContents.append("<a href=\"" + link + "\" class=\"hover-underline\">" + article.title + "</a>");
+				mainContents.append("</div>");
+				mainContents.append("</div>");
+			}
+
+			body = bodyTemplate.replace("${article-list__main-contents}", mainContents);
+
+			sb.append(body);
+			sb.append(foot);
+
+			String filePath = "site/" + fileName;
+			Util.fileWriter(filePath, sb.toString());
+			System.out.println(filePath + " 생성.");
+		}
 	}
 
 	private void bildIndexPage() {
@@ -85,7 +128,7 @@ public class BuildService {
 		for (Board board : boards) {
 			boardMenuContentsHtml.append("<li>");
 
-			String link = board.code + "-list-1.html";
+			String link = "article_list_" + board.code + "_1.html";
 			boardMenuContentsHtml.append("<a href=\"" + link + "\" class=\"block\">");
 
 			boardMenuContentsHtml.append(getTitleBarContentsByPageName("article_list_" + board.code));
