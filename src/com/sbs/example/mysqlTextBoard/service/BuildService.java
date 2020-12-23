@@ -29,7 +29,8 @@ public class BuildService {
 		buildArticleDetailPages();
 	}
 
-	private void buildAnArticlelistPage(Board board, int pageBoxSize, List<Article> articles, int page) {
+	private void buildAnArticlelistPage(Board board, int itemsCountInAPage, int pageBoxSize, List<Article> articles,
+			int articlesCount, int page) {
 
 		StringBuilder sb = new StringBuilder();
 
@@ -42,7 +43,15 @@ public class BuildService {
 
 		StringBuilder mainContents = new StringBuilder();
 
-		for (Article article : articles) {
+		int firstArticleIndexOfPage = (page - 1) * itemsCountInAPage;
+		int lastArticleIndexOfPage = firstArticleIndexOfPage + (itemsCountInAPage - 1);
+
+		if (lastArticleIndexOfPage >= articlesCount) {
+			lastArticleIndexOfPage = articlesCount - 1;
+		}
+
+		for (int i = firstArticleIndexOfPage; i <= lastArticleIndexOfPage; i++) {
+			Article article = articles.get(i);
 
 			String link = "article_detail_" + article.id + ".html";
 
@@ -93,12 +102,13 @@ public class BuildService {
 		for (Board board : boards) {
 			List<Article> articles = articleService.getArticlesForPrintOut(board.id);
 
+			int itemsCountInAPage = 10;
 			int pageBoxSize = 10;
 			int articlesCount = articles.size();
-			int totalPages = (int) Math.ceil((double) articlesCount / pageBoxSize);
+			int totalPages = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
 
 			for (int i = 1; i <= totalPages; i++) {
-				buildAnArticlelistPage(board, pageBoxSize, articles, i);
+				buildAnArticlelistPage(board, itemsCountInAPage, pageBoxSize, articles, articlesCount, i);
 			}
 
 		}
