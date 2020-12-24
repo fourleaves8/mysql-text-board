@@ -89,7 +89,9 @@ a {
 .block {
 	display: block;
 }
-
+.none{
+	display: none;
+}
 .bd-red {
 	border: 3px solid red;
 }
@@ -306,3 +308,24 @@ a {
   color:red;
 }
 /* article list page menu ends** */
+
+/* **article detail starts */
+.article-detail > * {
+  border-bottom:1px solid black;
+  padding-bottom:20px;
+  padding-top:20px;
+}
+
+.article-detail__title {
+  font-size:1.2rem;
+  padding-top:0;
+}
+
+.article-detail__sub-info > * {
+  margin-right:15px;
+}
+
+.article-detail__menu > a {
+  margin-right:15px;
+}
+/* article detail ends** */

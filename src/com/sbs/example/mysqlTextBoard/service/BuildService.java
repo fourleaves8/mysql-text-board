@@ -44,7 +44,7 @@ public class BuildService {
 		StringBuilder mainContents = new StringBuilder();
 
 		int firstArticleIndexOfPage = (page - 1) * itemsCountInAPage;
-		int lastArticleIndexOfPage = firstArticleIndexOfPage + (itemsCountInAPage - 1);
+		int lastArticleIndexOfPage = firstArticleIndexOfPage + itemsCountInAPage - 1;
 
 		if (lastArticleIndexOfPage >= articlesCount) {
 			lastArticleIndexOfPage = articlesCount - 1;
@@ -169,28 +169,30 @@ public class BuildService {
 	}
 
 	private void buildArticleDetailPages() {
-		List<Article> articles = articleService.showList();
+		List<Article> articles = articleService.getArticlesForPrintOut();
 
 		String head = getHeadHtml("article_detail");
+		String bodyTemplate = Util.getFileTemplate("site_template/article_detail.html");
 		String foot = Util.getFileTemplate("site_template/foot.html");
+
 		// 게시물 상세 페이지 생성
 		for (Article article : articles) {
 			StringBuilder sb = new StringBuilder();
+			String body = bodyTemplate;
+			body = body.replace("${article-detail__title}", article.title);
+			body = body.replace("${article-detail__board-name}", "");
+			body = body.replace("${article-detail__reg-date}", article.regDate);
+			body = body.replace("${article-detail__writer}", article.userName);
+			body = body.replace("${article-detail__body}", article.body);
+			body = body.replace("${article-detail__link-prev-article-url}", "");
+			body = body.replace("${article-detail__link-prev-article-class-addi}", "");
+			body = body.replace("${article-detail__link-article-list-url}", "");
+			body = body.replace("${article-detail__link-article-list-class-addi}", "");
+			body = body.replace("${article-detail__link-next-article-url}", "");
+			body = body.replace("${article-detail__link-next-article-class-addi}", "");
 
 			sb.append(head);
-
-			sb.append("<div>");
-
-			sb.append("번호 : " + article.id + "<br>");
-			sb.append("생성날짜 : " + article.regDate + "<br>");
-			sb.append("갱신날짜 : " + article.updateDate + "<br>");
-			sb.append("제목 : " + article.title + "<br>");
-			sb.append("내용 : " + article.body + "<br>");
-			sb.append("<a href=\"article_detail_" + (article.id - 1) + ".html\">이전글</a><br>");
-			sb.append("<a href=\"article_detail_" + (article.id + 1) + ".html\">다음글</a><br>");
-
-			sb.append("</div>");
-
+			sb.append(body);
 			sb.append(foot);
 
 			String fileName = "article_detail_" + article.id + ".html";

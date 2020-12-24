@@ -36,6 +36,10 @@ public class ArticleService {
 		return articleDao.getArticlesForPrintOut(boardId);
 	}
 
+	public List<Article> getArticlesForPrintOut() {
+		return articleDao.getArticlesForPrintOut(0);
+	}
+
 	public void doModify(int id, String title, String body) {
 		articleDao.modify(id, title, body);
 	}
