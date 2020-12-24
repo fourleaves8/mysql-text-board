@@ -86,3 +86,42 @@ SET regDate = NOW(),
 updateDate = NOW(),
 `name` = '자유',
 `code` = 'free';
+
+SELECT * FROM article;
+
+#게시물 랜덤 생성
+INSERT INTO article
+SET regDate = NOW(),
+updateDate =NOW(),
+title = CONCAT("제목_", RAND()),
+`body` = CONCAT("제목_", RAND()),
+userId = FLOOR (RAND()*2)+1,
+boardId = FLOOR (RAND()*2)+1;
+
+/*
+# 램덤 게시물 생성
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate =NOW(),
+title = CONCAT("제목_", RAND()),
+`body` = CONCAT("내용_", RAND()),
+userId = FLOOR (RAND()*2)+1,
+boardId = FLOOR (RAND()*2)+1;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate =NOW(),
+title = CONCAT("제목_", RAND()),
+`body` = CONCAT("내용_", RAND()),
+userId = FLOOR (RAND()*2)+1,
+boardId = FLOOR (RAND()*2)+1;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate =NOW(),
+title = CONCAT("제목_", RAND()),
+`body` = CONCAT("내용_", RAND()),
+userId = FLOOR (RAND()*2)+1,
+boardId = FLOOR (RAND()*2)+1;
+*/
