@@ -53,7 +53,7 @@ public class BuildService {
 		for (int i = firstArticleIndexOfPage; i <= lastArticleIndexOfPage; i++) {
 			Article article = articles.get(i);
 
-			String link = "article_detail_" + article.id + ".html";
+			String link = getArticleDetailFileName(article.id);
 
 			mainContents.append("<div>");
 			mainContents.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
@@ -73,22 +73,24 @@ public class BuildService {
 			page = totalPages;
 		}
 
-		// 현재 페이지박스 시작, 끝 계산 (eg. page = 17)
-		int previousPageBoxesCount = (page - 1) / pageBoxSize; // 이전 페이지박스 대역 구하기 (eg. ('17'-1)/10 = *1* (자동 소수점 버림))
-		int pageBoxStartPage = pageBoxSize * previousPageBoxesCount + 1; // 현재 페이지 박스의 첫 페이지 (eg. '1'*10+1 = *11*)
-		int pageBoxEndPage = pageBoxStartPage + pageBoxSize - 1; // 현재 페이지 박스의 마지막 페이지 (eg. '11' + 10 -1 = *20*)
+		// 현재 페이지박스 시작, 끝 계산 (e.g. page = 17)
+		int previousPageBoxesCount = (page - 1) / pageBoxSize; // 이전 페이지박스 대역 구하기 (e.g. ('17'-1)/10 = *1* (자동 소수점 버림))
+		int pageBoxStartPage = pageBoxSize * previousPageBoxesCount + 1; // 현재 페이지 박스의 첫 페이지 (e.g. '1'*10+1 = *11*)
+		int pageBoxEndPage = pageBoxStartPage + pageBoxSize - 1; // 현재 페이지 박스의 마지막 페이지 (e.g. '11' + 10 -1 = *20*)
 
 		if (pageBoxEndPage > totalPages) {
 			pageBoxEndPage = totalPages;
 		}
 
 		// 이전, 다음 버튼 페이지 계산
-		int pageBforePageBoxStartPage = pageBoxStartPage - 1; // 이전페이지 (eg. '11' - 1 = *10*)
-		int pageAfterPageBoxEndPage = pageBoxEndPage + 1; // 다음페이지 (eg. '20' + 1 = *21*)
+		int pageBforePageBoxStartPage = pageBoxStartPage - 1; // 이전페이지 (e.g. '11' - 1 = *10*)
+		int pageAfterPageBoxEndPage = pageBoxEndPage + 1; // 다음페이지 (e.g. '20' + 1 = *21*)
 
-		if (pageBforePageBoxStartPage < 1) { // eg. 게시물 100개 미만, page 1~10이 끝일때, 1-1=0 이지만 1로 설정됨.
+		if (pageBforePageBoxStartPage < 1) { // e.g. 게시물 100개 미만, page 1~10이 끝일때, 1-1=0 이지만 1로 설정됨.
 			pageBforePageBoxStartPage = 1;
-		} else if (pageAfterPageBoxEndPage > totalPages) { // eg. totlaPages = 30 일때, 30+1=1 이지만 30으로 설정됨.
+		}
+
+		if (pageAfterPageBoxEndPage > totalPages) { // e.g. totlaPages = 30 일때, 30+1=1 이지만 30으로 설정됨.
 			pageAfterPageBoxEndPage = totalPages;
 		}
 
@@ -133,7 +135,11 @@ public class BuildService {
 	}
 
 	private String getArticleListFileName(Board board, int page) {
-		return "article_list_" + board.code + "_" + page + ".html";
+		return getArticleListFileName(board.code, page);
+	}
+
+	private String getArticleListFileName(String boardCode, int page) {
+		return "article_list_" + boardCode + "_" + page + ".html";
 	}
 
 	private void buildArticlelistPages() {
@@ -169,38 +175,80 @@ public class BuildService {
 	}
 
 	private void buildArticleDetailPages() {
-		List<Article> articles = articleService.getArticlesForPrintOut();
+		List<Board> boards = articleService.getBoards();
 
 		String head = getHeadHtml("article_detail");
 		String bodyTemplate = Util.getFileTemplate("site_template/article_detail.html");
 		String foot = Util.getFileTemplate("site_template/foot.html");
 
-		// 게시물 상세 페이지 생성
-		for (Article article : articles) {
-			StringBuilder sb = new StringBuilder();
-			String body = bodyTemplate;
-			body = body.replace("${article-detail__title}", article.title);
-			body = body.replace("${article-detail__board-name}", "");
-			body = body.replace("${article-detail__reg-date}", article.regDate);
-			body = body.replace("${article-detail__writer}", article.userName);
-			body = body.replace("${article-detail__body}", article.body);
-			body = body.replace("${article-detail__link-prev-article-url}", "");
-			body = body.replace("${article-detail__link-prev-article-class-addi}", "");
-			body = body.replace("${article-detail__link-article-list-url}", "");
-			body = body.replace("${article-detail__link-article-list-class-addi}", "");
-			body = body.replace("${article-detail__link-next-article-url}", "");
-			body = body.replace("${article-detail__link-next-article-class-addi}", "");
+		for (Board board : boards) {
+			List<Article> articles = articleService.getArticlesForPrintOut(board.id);
 
-			sb.append(head);
-			sb.append(body);
-			sb.append(foot);
+			for (int i = 0; i < articles.size(); i++) {
+				Article article = articles.get(i);
+				Article prevArticle = null;
+				Article nextArticle = null;
 
-			String fileName = "article_detail_" + article.id + ".html";
-			String filePath = "site/" + fileName;
-			Util.fileWriter(filePath, sb.toString());
-			System.out.println(filePath + " 생성.");
+				// 인덱스가 커질수록 예전글 (게시물을 DESC 정렬했으므로 가장 최신글부터 0에 저장)
+				int prevArticleIndex = i + 1; // 이전글 = 예전글
+				int preveArticleId = 0;
+				if (prevArticleIndex < articles.size()) {
+					prevArticle = articles.get(prevArticleIndex);
+					preveArticleId = prevArticle.id;
+				}
+
+				// 인덱스가 작아질수록 최신글
+				int nextArticleIndex = i - 1; // 다음글: 최신글
+				int nextArticleId = 0;
+				if (nextArticleIndex >= 0) {
+					nextArticle = articles.get(nextArticleIndex);
+					nextArticleId = nextArticle.id;
+				}
+
+				StringBuilder sb = new StringBuilder();
+				String body = bodyTemplate;
+				body = body.replace("${article-detail__title}", article.title);
+				body = body.replace("${article-detail__board-name}", board.name);
+				body = body.replace("${article-detail__reg-date}", article.regDate);
+				body = body.replace("${article-detail__writer}", article.userName);
+				body = body.replace("${article-detail__body}", article.body);
+				body = body.replace("${article-detail__link-prev-article-url}",
+						getArticleDetailFileName(preveArticleId));
+				body = body.replace("${article-detail__link-prev-article-class-addi}",
+						preveArticleId == 0 ? "none" : "");
+				body = body.replace("${article-detail__link-prev-article-title-attr}",
+						prevArticle != null ? prevArticle.title : "");
+				body = body.replace("${article-detail__link-article-list-url}",
+						getArticleListFileName(board.code, getPageNumber(i)));
+				body = body.replace("${article-detail__link-article-list-class-addi}", "");
+				body = body.replace("${article-detail__link-next-article-url}",
+						getArticleDetailFileName(nextArticleId));
+				body = body.replace("${article-detail__link-next-article-class-addi}",
+						nextArticleId == 0 ? "none" : "");
+				body = body.replace("${article-detail__link-next-article-title-attr}",
+						nextArticle != null ? nextArticle.title : "");
+
+				sb.append(head);
+				sb.append(body);
+				sb.append(foot);
+
+				String fileName = getArticleDetailFileName(article.id);
+				String filePath = "site/" + fileName;
+				Util.fileWriter(filePath, sb.toString());
+				System.out.println(filePath + " 생성.");
+			}
+
 		}
 
+	}
+
+	private int getPageNumber(int i) {
+		return i / 10 + 1;
+
+	}
+
+	private String getArticleDetailFileName(int id) {
+		return "article_detail_" + id + ".html";
 	}
 
 	private String getHeadHtml(String pageName) {

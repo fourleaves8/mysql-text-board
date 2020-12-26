@@ -67,13 +67,16 @@ public class ArticleDao {
 		List<Article> articles = new ArrayList<>();
 
 		SecSql sql = new SecSql();
-		sql.append("SELECT A.*, U.name AS userName");
+		sql.append("SELECT A.*,");
+		sql.append("U.name AS userName");
 		sql.append("FROM article AS A");
 		sql.append("INNER JOIN `user` AS U");
 		sql.append("ON A.userId = U.id");
+
 		if (boardId != 0) {
 			sql.append("WHERE A.boardId = ?", boardId);
 		}
+
 		sql.append("ORDER BY A.id DESC");
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
