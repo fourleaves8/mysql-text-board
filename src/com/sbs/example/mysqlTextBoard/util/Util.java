@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 public class Util {
@@ -89,6 +90,29 @@ public class Util {
 
 			e.printStackTrace();
 		}
+	}
+
+	public static void rmFilesInDir(File dir) {
+		File[] files = dir.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				String fileName = name.toLowerCase();
+				if (fileName.endsWith(".html")) {
+					return true;
+				} else if (fileName.endsWith(".css")) {
+					return true;
+				}
+
+				return false;
+			}
+		});
+		if (files != null) {
+			for (File file : files) {
+				file.delete();
+			}
+		}
+
 	}
 
 } // Util{}

@@ -17,9 +17,10 @@ public class BuildService {
 	}
 
 	public void buildsite() {
-		System.out.println("site 폴더 생성");
-		Util.rmdir(new File("site"));
-		Util.mkdir(new File("site"));
+		String filePath = "site";
+		Util.rmFilesInDir(new File(filePath));
+		Util.mkdir(new File(filePath));
+		System.out.println("site 폴더 내 파일 삭제 후 다시 생성");
 
 		System.out.println("site/app.css 생성.");
 		Util.copy(new File("site_template/app.css"), new File("site/app.css"));
