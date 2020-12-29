@@ -14,7 +14,7 @@
 	<div class="con">
 		<div class="article-detail">
 
-			<h2 class="article-detail__title">${article-detail__title}</h2>
+			<h2 class="article-detail__title"></h2>
 
 			<div class="article-detail__sub-info flex">
 				<div class="article-detail__board-name">${article-detail__board-name}</div>
@@ -45,10 +45,6 @@
 			el : document.querySelector('.article-detail__body'),
 			initialValue : `${article-detail__body}`,
 			viewer : true
-		});
-
-		$('.editor-viewer-1__btn-set-markdown').click(function() {
-			viewer.setMarkdown('# 하하');
 		});
 	}
 
