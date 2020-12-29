@@ -1,3 +1,15 @@
+<!-- 토스트 UI 에디터, 자바스크립트 코어 -->
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<!-- 코드 미러 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" />
+<!-- 토스트 UI 에디터, CSS 코어 -->
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+
 <section class="section-1 con-min-width">
 	<div class="con">
 		<div class="article-detail">
@@ -10,13 +22,35 @@
 				<div class="article-detail__writer">${article-detail__writer}</div>
 			</div>
 
-			<div class="article-detail__body">${article-detail__body}</div>
+			<div class="article-detail__body" id="editor-viewer-1">${article-detail__body}</div>
 
 			<div class="article-detail__menu flex">
-				<a title ="${article-detail__link-prev-article-title-attr}" href="${article-detail__link-prev-article-url}" class="hover-underline ${article-detail__link-prev-article-class-addi}">&lt; 이전글</a>
-				<a href="${article-detail__link-article-list-url}" class="hover-underline ${article-detail__link-article-list-class-addi}">목록</a> 
-				<a title = "${article-detail__link-next-article-title-attr}" href="${article-detail__link-next-article-url}" class="hover-underline ${article-detail__link-next-article-class-addi}">다음글 &gt;</a>
+				<a title="${article-detail__link-prev-article-title-attr}"
+					href="${article-detail__link-prev-article-url}"
+					class="hover-underline ${article-detail__link-prev-article-class-addi}">&lt;
+					이전글</a> <a href="${article-detail__link-article-list-url}"
+					class="hover-underline ${article-detail__link-article-list-class-addi}">목록</a>
+				<a title="${article-detail__link-next-article-title-attr}"
+					href="${article-detail__link-next-article-url}"
+					class="hover-underline ${article-detail__link-next-article-class-addi}">다음글
+					&gt;</a>
 			</div>
 		</div>
 	</div>
 </section>
+
+<script>
+	function ArticleDetail__Body__init() {
+		var viewer = new toastui.Editor.factory({
+			el : document.querySelector('.article-detail__body'),
+			initialValue : `${article-detail__body}`,
+			viewer : true
+		});
+
+		$('.editor-viewer-1__btn-set-markdown').click(function() {
+			viewer.setMarkdown('# 하하');
+		});
+	}
+
+	ArticleDetail__Body__init();
+</script>

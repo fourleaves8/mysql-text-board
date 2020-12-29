@@ -85,28 +85,62 @@
     <h1 class="con">
       <i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
     </h1>
-  </section><section class="section-1 con-min-width">
+  </section><!-- 토스트 UI 에디터, 자바스크립트 코어 -->
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<!-- 코드 미러 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" />
+<!-- 토스트 UI 에디터, CSS 코어 -->
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+
+<section class="section-1 con-min-width">
 	<div class="con">
 		<div class="article-detail">
 
 			<h2 class="article-detail__title">제목2</h2>
 
 			<div class="article-detail__sub-info flex">
-				<div class="article-detail__board-name">공지사항</div>
-				<div class="article-detail__reg-date">2020-12-27 03:30:01</div>
-				<div class="article-detail__writer">테스터1</div>
+				<div class="article-detail__board-name">자유</div>
+				<div class="article-detail__reg-date">2020-12-29 09:48:36</div>
+				<div class="article-detail__writer">테스터2</div>
 			</div>
 
-			<div class="article-detail__body">내용2</div>
+			<div class="article-detail__body" id="editor-viewer-1">내용2</div>
 
 			<div class="article-detail__menu flex">
-				<a title ="제목1" href="article_detail_1.html" class="hover-underline ">&lt; 이전글</a>
-				<a href="article_list_notice_1.html" class="hover-underline ">목록</a> 
-				<a title = "제목_0.37634717242452054" href="article_detail_4.html" class="hover-underline ">다음글 &gt;</a>
+				<a title="제목1"
+					href="article_detail_1.html"
+					class="hover-underline ">&lt;
+					이전글</a> <a href="article_list_free_1.html"
+					class="hover-underline ">목록</a>
+				<a title=""
+					href="article_detail_0.html"
+					class="hover-underline none">다음글
+					&gt;</a>
 			</div>
 		</div>
 	</div>
-</section></main>
+</section>
+
+<script>
+	function ArticleDetail__Body__init() {
+		var viewer = new toastui.Editor.factory({
+			el : document.querySelector('.article-detail__body'),
+			initialValue : `내용2`,
+			viewer : true
+		});
+
+		$('.editor-viewer-1__btn-set-markdown').click(function() {
+			viewer.setMarkdown('# 하하');
+		});
+	}
+
+	ArticleDetail__Body__init();
+</script></main>
 <!-- main ends -->
 
 <!-- bottombar begins -->

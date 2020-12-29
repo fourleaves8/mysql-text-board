@@ -20,24 +20,24 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1',
-userId = 1,
-boardId = 1;
+userId = 2,
+boardId = 2;
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
 `body` = '내용2',
-userId = 1,
-boardId = 1;
+userId = 2,
+boardId = 2;
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3',
-userId = 2,
-boardId = 2;
+userId = 1,
+boardId = 1;
 
 # 회원 테이블 생성
 CREATE TABLE `user` (
@@ -88,17 +88,9 @@ updateDate = NOW(),
 `code` = 'free';
 
 
-#게시물 랜덤 생성
-INSERT INTO article
-SET regDate = NOW(),
-updateDate =NOW(),
-title = CONCAT("제목_", RAND()),
-`body` = CONCAT("제목_", RAND()),
-userId = FLOOR (RAND()*2)+1,
-boardId = FLOOR (RAND()*2)+1;
 
 # 램덤 게시물 생성
-
+/*
 INSERT INTO article
 SET regDate = NOW(),
 updateDate =NOW(),
@@ -130,6 +122,9 @@ title = CONCAT("제목_", RAND()),
 `body` = CONCAT("내용_", RAND()),
 userId = FLOOR (RAND()*2)+1,
 boardId = FLOOR (RAND()*2)+1;
-
+*/
+UPDATE `article` 
+SET `body` = '#공지사항\r\n\r\n이곳은 제 글 연재 공간 입니다.\r\n\r\n---\r\n\r\n블로그 특징\r\n\r\n- A\r\n- B\r\n- C' 
+WHERE `id` = '3'; 
 
 SELECT * FROM article;
