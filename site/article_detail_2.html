@@ -109,7 +109,7 @@
 				<div class="article-detail__writer">테스터2</div>
 			</div>
 
-			<div class="article-detail__body" id="editor-viewer-1">내용2</div>
+			<div class="article-detail__body main-font">내용2</div>
 
 			<div class="article-detail__menu flex">
 				<a title="제목1"
@@ -125,34 +125,25 @@
 		</div>
 	</div>
 </section>
-
-<script>
-	function ArticleDetail__Body__init() {
-		var viewer = new toastui.Editor.factory({
-			el : document.querySelector('.article-detail__body'),
-			initialValue : `내용2`,
-			viewer : true
-		});
-	}
-
-	ArticleDetail__Body__init();
-</script></main>
+</main>
 <!-- main ends -->
 
 <!-- bottombar begins -->
 <footer class="bottom-bar con-min-width">
-  <div class="con flex flex-ai-c">
-    <a href="#" class="logo logo-small flex flex-ai-c">
-      <i class="fas fa-hamburger"></i>
-      <span>Look<span>U</span></span>  
-    </a>
-    <div class="bottom-bar__site-info">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ducimus, distinctio voluptatibus praesentium recusandae error. Mollitia hic natus accusamus, placeat quia dicta iusto quas eius minima aperiam assumenda repellat impedit!
-    </div>
-  </div>
+	<div class="con flex flex-ai-c">
+		<a href="#" class="logo logo-small flex flex-ai-c"> <i
+			class="fas fa-hamburger"></i> <span>Look<span>U</span></span>
+		</a>
+		<div class="bottom-bar__site-info">Lorem ipsum dolor sit amet
+			consectetur adipisicing elit. Nisi ducimus, distinctio voluptatibus
+			praesentium recusandae error. Mollitia hic natus accusamus, placeat
+			quia dicta iusto quas eius minima aperiam assumenda repellat impedit!
+		</div>
+	</div>
 </footer>
 <!-- bottombar ends -->
 
 </div>
+<script src="app.js"></script>
 </body>
 </html>

@@ -24,7 +24,8 @@ public class BuildService {
 
 		System.out.println("site/app.css 생성.");
 		Util.copy(new File("site_template/app.css"), new File("site/app.css"));
-
+		Util.copy(new File("site_template/app.js"), new File("site/app.js"));
+		
 		bildIndexPage();
 		buildArticlelistPages();
 		buildArticleDetailPages();

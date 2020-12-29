@@ -22,7 +22,7 @@
 				<div class="article-detail__writer">${article-detail__writer}</div>
 			</div>
 
-			<div class="article-detail__body" id="editor-viewer-1">${article-detail__body}</div>
+			<div class="article-detail__body main-font">${article-detail__body}</div>
 
 			<div class="article-detail__menu flex">
 				<a title="${article-detail__link-prev-article-title-attr}"
@@ -38,15 +38,3 @@
 		</div>
 	</div>
 </section>
-
-<script>
-	function ArticleDetail__Body__init() {
-		var viewer = new toastui.Editor.factory({
-			el : document.querySelector('.article-detail__body'),
-			initialValue : `${article-detail__body}`,
-			viewer : true
-		});
-	}
-
-	ArticleDetail__Body__init();
-</script>
