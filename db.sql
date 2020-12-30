@@ -131,3 +131,23 @@ WHERE `id` = '3';
 UPDATE `article` 
 SET `body` = '# 자바기분문법\r\n```java\r\nint a = 10;\r\nint b = 20;\r\nint c = a + b;\r\n```' 
 WHERE `id` = '2'; 
+
+# 운영 시작
+
+TRUNCATE `article`;
+TRUNCATE `user`;
+
+# it 게시판 추가
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`name` = 'Java',
+`code` = 'it';
+
+# 사용자 추가
+INSERT INTO `user`
+SET regDate = NOW(),
+updateDate = NOW(),
+accountName = 'admin',
+accountPw = 'admin',
+`name` = '천승우';
