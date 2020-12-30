@@ -87,8 +87,6 @@ updateDate = NOW(),
 `name` = '자유',
 `code` = 'free';
 
-
-
 # 램덤 게시물 생성
 /*
 INSERT INTO article
@@ -133,5 +131,3 @@ WHERE `id` = '3';
 UPDATE `article` 
 SET `body` = '# 자바기분문법\r\n```java\r\nint a = 10;\r\nint b = 20;\r\nint c = a + b;\r\n```' 
 WHERE `id` = '2'; 
-
-SELECT * FROM article;
