@@ -123,8 +123,15 @@ title = CONCAT("제목_", RAND()),
 userId = FLOOR (RAND()*2)+1,
 boardId = FLOOR (RAND()*2)+1;
 */
+
+# 3번글 내용 마크다운 문법으로 수정
 UPDATE `article` 
 SET `body` = '#공지사항\r\n\r\n이곳은 제 글 연재 공간 입니다.\r\n\r\n---\r\n\r\n블로그 특징\r\n\r\n- A\r\n- B\r\n- C' 
 WHERE `id` = '3'; 
+
+# 2번글 내용에 자바소스코드 넣기
+UPDATE `article` 
+SET `body` = '# 자바기분문법\r\n```java\r\nint a = 10;\r\nint b = 20;\r\nint c = a + b;\r\n```' 
+WHERE `id` = '2'; 
 
 SELECT * FROM article;

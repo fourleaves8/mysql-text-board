@@ -88,14 +88,20 @@
   </section><!-- 토스트 UI 에디터, 자바스크립트 코어 -->
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
+<!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
 <!-- 코드 미러 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" />
 <!-- 토스트 UI 에디터, CSS 코어 -->
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
+<!-- 토스트 UI 에디터, 신택스 하이라이트 플러그인 추가 -->
+<script
+	src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.js"></script>
 
 <section class="section-1 con-min-width">
 	<div class="con">
@@ -105,11 +111,16 @@
 
 			<div class="article-detail__sub-info flex">
 				<div class="article-detail__board-name">자유</div>
-				<div class="article-detail__reg-date">2020-12-29 22:13:43</div>
+				<div class="article-detail__reg-date">2020-12-30 13:18:44</div>
 				<div class="article-detail__writer">테스터2</div>
 			</div>
 
-			<div class="article-detail__body main-font">내용2</div>
+			<div class="article-detail__body main-font"># 자바기분문법
+```java
+int a = 10;
+int b = 20;
+int c = a + b;
+```</div>
 
 			<div class="article-detail__menu flex">
 				<a title="제목1"
