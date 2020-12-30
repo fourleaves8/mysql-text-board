@@ -25,10 +25,55 @@ public class BuildService {
 		System.out.println("site/app.css 생성.");
 		Util.copy(new File("site_template/app.css"), new File("site/app.css"));
 		Util.copy(new File("site_template/app.js"), new File("site/app.js"));
-		
+
 		bildIndexPage();
 		buildArticlelistPages();
 		buildArticleDetailPages();
+	}
+
+	private void buildAnEmptyListPage(Board board) {
+		// 헤더 시작
+		StringBuilder sb = new StringBuilder();
+		String head = getHeadHtml("article_list_" + board.code);
+		sb.append(head);
+
+		// 바디 시작
+		String bodyTemplate = Util.getFileTemplate("site_template/article_list.html");
+
+		StringBuilder mainContents = new StringBuilder();
+
+		mainContents.append("<div>");
+		mainContents.append("<div class=\"article-list__cell-id\"></div>");
+		mainContents.append("<div class=\"article-list__cell-reg-date\"></div>");
+		mainContents.append("<div class=\"article-list__cell-writer\"></div>");
+		mainContents.append("<div class=\"article-list__cell-title\">");
+		mainContents.append("<a href=\"\" class=\"hover-underline\"></a>");
+		mainContents.append("</div>");
+		mainContents.append("</div>");
+
+		// 페이지 메뉴 시작
+		StringBuilder pageMenuContents = new StringBuilder();
+		String selectedClass = "article-page-menu__link--selected";
+		int page = 1;
+		pageMenuContents.append("<li><a href=\"" + getArticleListFileName(board, page) + "\" class=\"flex flex-ai-c "
+				+ selectedClass + "\">" + page + "</a></li>");
+
+		String body = bodyTemplate.replace("${article-list__main-contents}", mainContents);
+		body = body.replace("${article-page-menu__page-menu-contents}", pageMenuContents);
+
+		sb.append(body);
+
+		// 푸터 시작
+		String foot = Util.getFileTemplate("site_template/foot.html");
+		sb.append(foot);
+
+		// 파일 생성 시작
+		String fileName = getArticleListFileName(board, page);
+		String filePath = "site/" + fileName;
+
+		Util.fileWriter(filePath, sb.toString());
+		System.out.println(filePath + " 생성.");
+
 	}
 
 	private void buildAnArticlelistPage(Board board, int itemsCountInAPage, int pageBoxSize, List<Article> articles,
@@ -66,6 +111,7 @@ public class BuildService {
 			mainContents.append("</div>");
 			mainContents.append("</div>");
 		}
+
 		StringBuilder pageMenuContents = new StringBuilder();
 
 		// 현재 페이지 계산
@@ -153,7 +199,10 @@ public class BuildService {
 			int pageBoxSize = 10;
 			int articlesCount = articles.size();
 			int totalPages = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
-
+			if (articles.size() == 0) {
+				buildAnEmptyListPage(board);
+				continue;
+			}
 			for (int i = 1; i <= totalPages; i++) {
 				buildAnArticlelistPage(board, itemsCountInAPage, pageBoxSize, articles, articlesCount, i, totalPages);
 			}
@@ -290,8 +339,8 @@ public class BuildService {
 			return "<i class=\"fas fa-exclamation-circle\"></i> <span>NOTICE</span>";
 		} else if (pageName.startsWith("article_list_free")) {
 			return "<i class=\"fas fa-comment-dots\"></i> <span>FREE</span>";
-		} else if (pageName.startsWith("article_list_")) {
-			return "<i class=\"far fa-clipboard\"></i> <span>GENERAL</span>";
+		} else if (pageName.startsWith("article_list_it")) {
+			return "<i class=\"far fa-clipboard\"></i> <span>IT</span>";
 		}
 		return "";
 	}
