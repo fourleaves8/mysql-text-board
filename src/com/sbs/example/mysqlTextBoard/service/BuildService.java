@@ -18,8 +18,8 @@ public class BuildService {
 
 	public void buildsite() {
 		String filePath = "site";
-		Util.rmFilesInDir(new File(filePath));
-		Util.mkdir(new File(filePath));
+		Util.rmFilesInDir(new File(filePath)); //html, css 파일만 삭제.
+		Util.mkdir(new File(filePath)); //dir가 존재하지 않을경우 생성.
 		System.out.println("site 폴더 내 파일 삭제 후 다시 생성");
 
 		System.out.println("site/app.css 생성.");
