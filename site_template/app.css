@@ -94,13 +94,13 @@ a {
 
 /* logo begins */
 .logo {
-	font-size: 4rem;
+	font-size: 3rem;
 	font-family:none;
 }
 
 .logo>img {
-	width: 140px;
-	height: 140px;
+	width: 110px;
+	height: 110px;
 	margin-right: 50px;
 	z-index: 10;
 }
@@ -114,8 +114,8 @@ a {
 }
 
 .logo-small>img {
-	width: 80px;
-	height: 80px;
+	width: 60px;
+	height: 60px;
 	margin-right: 28px;
 }
 /* logo ends */
