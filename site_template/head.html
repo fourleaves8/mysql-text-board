@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script data-ad-client="ca-pub-1072188852026532" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script data-ad-client="ca-pub-1072188852026532" async
+	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJT2TV1T4V"></script>
+<script async
+	src="https://www.googletagmanager.com/gtag/js?id=G-TJT2TV1T4V"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
 
-  gtag('config', 'G-TJT2TV1T4V');
+	gtag('config', 'G-TJT2TV1T4V');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,26 +25,57 @@
 <!-- loading fontawsome ends -->
 
 <link rel="stylesheet" href="app.css" />
-<meta name="google-site-verification" content="wkM0PBxue8LuV3A4qBR8TuEVKaUcsYlnbk2etDrx1GI" />
+<meta name="google-site-verification"
+	content="wkM0PBxue8LuV3A4qBR8TuEVKaUcsYlnbk2etDrx1GI" />
 </head>
 <body>
 	<div class="body-content flex flex-column min-height-100vh">
-  
-<!-- logobar begins -->
-<header class="logo-bar con-min-width">
-  <div class="con height-100p flex flex-jc-c">
-    <a href="#" class="logo flex flex-ai-c">
-      <img src="img/logo-face_circle.png" alt="" />
-      <span>Zer<span>O</span>ne</span>
-    </a>
-  </div>
-</header>
-<!-- logobar ends -->
 
-<!-- main begins -->
-<main class="flex-grow-1">
-  <section class="title-bar con-min-width">
-    <h1 class="con">
-      ${title-bar__contents}
-    </h1>
-  </section>
+		<!-- logobar begins -->
+		<header class="logo-bar con-min-width">
+			<div class="con height-100p flex flex-jc-c">
+				<a href="index.html" class="logo flex flex-ai-c"> <img
+					src="img/logo-face_circle.png" alt="" /> <span>Zer<span>O</span>ne
+				</span>
+				</a>
+			</div>
+		</header>
+		<!-- logobar ends -->
+		<!-- menubar begins -->
+		<header class="menu-bar con-min-width">
+			<div class="con height-100p">
+				<nav class="menu-bar__menu-1">
+					<ul class="flex">
+						<li><a href="index.html" class="block"> <i
+								class="fas fa-home"></i> <span>HOME</span>
+						</a></li>
+						<li><a href="" class="block"> <i class="fas fa-book-open"></i>
+								<span>ARTICLES</span>
+						</a>
+							<ul>${menu-bar__menu-1__board-menu-contents}
+							</ul></li>
+						<li><a href="" class="block"> <i class="fas fa-link"></i>
+								<span>LINKS</span>
+						</a>
+							<ul>
+								<li><a href="" class="block"> <i
+										class="fab fa-blogger-b"></i> <span>Blog</span>
+								</a></li>
+								<li><a href="" class="block"> <i class="fab fa-github"></i>
+										<span>Github</span>
+								</a></li>
+							</ul></li>
+						<li><a href="" class="block"> <i
+								class="fas fa-chart-line"></i> <span>STATISTICS</span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<!-- menubar ends -->
+
+		<!-- main begins -->
+		<main class="body flex-grow-1">
+			<section class="title-bar con-min-width">
+				<h1 class="con">${title-bar__contents}</h1>
+			</section>
