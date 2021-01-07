@@ -3,27 +3,27 @@ package com.sbs.example.mysqlTextBoard.controller;
 import java.util.Scanner;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
-import com.sbs.example.mysqlTextBoard.dto.User;
-import com.sbs.example.mysqlTextBoard.service.UserService;
+import com.sbs.example.mysqlTextBoard.dto.Member;
+import com.sbs.example.mysqlTextBoard.service.MemberService;
 
-public class UserController extends Controller {
+public class MemberController extends Controller {
 
 	private Scanner sc;
-	private UserService userService;
+	private MemberService memberService;
 
-	public UserController() {
+	public MemberController() {
 		sc = Container.sc;
-		userService = Container.userService;
+		memberService = Container.memberService;
 	}
 
 	public void doCmd(String cmd) {
-		if (cmd.equals("user join")) {
+		if (cmd.equals("member join")) {
 			doJoin();
-		} else if (cmd.equals("user login")) {
+		} else if (cmd.equals("member login")) {
 			doLogin();
-		} else if (cmd.equals("user logout")) {
+		} else if (cmd.equals("member logout")) {
 			doLogout();
-		} else if (cmd.equals("user whoami")) {
+		} else if (cmd.equals("member whoami")) {
 			showWhoami();
 		} else {
 			System.out.println("올바른 명령어를 입력하세요.");
@@ -36,13 +36,13 @@ public class UserController extends Controller {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-		int loginedUserId = Container.session.getLoginedUserId();
-		User user = userService.getUserById(loginedUserId);
-		System.out.printf("회원번호 : %d\n", user.id);
-		System.out.printf("가입일 : %s\n", user.regDate);
-		System.out.printf("아이디 : %s\n", user.accountName);
-		System.out.printf("이름 : %s\n", user.name);
-		System.out.printf("회원종류 : %s\n", user.getType());
+		int loginedMemberId = Container.session.getLoginedMemberId();
+		Member member = memberService.getMemberById(loginedMemberId);
+		System.out.printf("회원번호 : %d\n", member.id);
+		System.out.printf("가입일 : %s\n", member.regDate);
+		System.out.printf("아이디 : %s\n", member.accountName);
+		System.out.printf("이름 : %s\n", member.name);
+		System.out.printf("회원종류 : %s\n", member.getType());
 	}
 
 	private void doLogout() {
@@ -57,9 +57,9 @@ public class UserController extends Controller {
 	private void doLogin() {
 		System.out.println("== 회원 로그인 ==");
 		if (Container.session.islogined()) {
-			int LoginedUserId = Container.session.getLoginedUserId();
-			User user = userService.getUserById(LoginedUserId);
-			System.out.printf("%s 님으로 로그인되어있습니다.\n", user.name);
+			int LoginedMemberId = Container.session.getLoginedMemberId();
+			Member member = memberService.getMemberById(LoginedMemberId);
+			System.out.printf("%s 님으로 로그인되어있습니다.\n", member.name);
 			System.out.println("*** 로그아웃 후 재시도 해주세요. ***");
 			return;
 		}
@@ -67,7 +67,7 @@ public class UserController extends Controller {
 		int maxFailCount = 3;
 		String accountName = "";
 		String accountPw;
-		User user;
+		Member member;
 
 		while (true) {
 			if (failCount >= maxFailCount) {
@@ -77,13 +77,13 @@ public class UserController extends Controller {
 
 			System.out.printf("회원아이디 : ");
 			accountName = sc.nextLine().trim();
-			user = userService.getUserByAcctName(accountName);
+			member = memberService.getMemberByAcctName(accountName);
 
 			if (accountName.length() == 0) {
 				failCount++;
 				System.out.println("아이디를 입력해주세요.");
 				continue;
-			} else if (user == null) {
+			} else if (member == null) {
 				failCount++;
 				System.out.println("존재하지 않는 아이디입니다.");
 				continue;
@@ -105,24 +105,24 @@ public class UserController extends Controller {
 				failCount++;
 				System.out.println("비밀번호를 입력해주세요.");
 				continue;
-			} else if (accountPw.equals(user.accountPw) == false) {
+			} else if (accountPw.equals(member.accountPw) == false) {
 				failCount++;
 				System.out.println("비밀번호가 일치하지 않습니다.");
 				continue;
 			}
 			break;
 		}
-		Container.session.login(user.id);
-		System.out.printf("로그인 성공! %s님 환영합니다.\n", user.name);
+		Container.session.login(member.id);
+		System.out.printf("로그인 성공! %s님 환영합니다.\n", member.name);
 	}
 
 	private void doJoin() {
 		System.out.println("== 회원 가입 ==");
 
 		if (Container.session.islogined()) {
-			int LoginedUserId = Container.session.getLoginedUserId();
-			User user = userService.getUserById(LoginedUserId);
-			System.out.printf("%s 님으로 로그인되어있습니다.\n", user.name);
+			int LoginedMemberId = Container.session.getLoginedMemberId();
+			Member member = memberService.getMemberById(LoginedMemberId);
+			System.out.printf("%s 님으로 로그인되어있습니다.\n", member.name);
 			System.out.println("*** 로그아웃 후 재시도 해주세요. ***");
 			return;
 		}
@@ -142,7 +142,7 @@ public class UserController extends Controller {
 			System.out.printf("사용하실 아이디 : ");
 			accountName = sc.nextLine().trim();
 
-			boolean isValidAcctName = userService.isValidAcctName(accountName);
+			boolean isValidAcctName = memberService.isValidAcctName(accountName);
 			if (isValidAcctName == false) {
 				failCount++;
 				System.out.printf("%s는 이미 사용중인 아이디입니다.\n", accountName);
@@ -193,7 +193,7 @@ public class UserController extends Controller {
 			break;
 		}
 
-		userService.doJoin(accountName, accountPw, name);
+		memberService.doJoin(accountName, accountPw, name);
 		System.out.printf("환영합니다 %s님!\n회원가입에 성공하였습니다.\n", name);
 	}
 

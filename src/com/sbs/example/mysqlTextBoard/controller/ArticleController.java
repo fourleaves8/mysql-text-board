@@ -6,19 +6,19 @@ import java.util.Scanner;
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
-import com.sbs.example.mysqlTextBoard.dto.User;
+import com.sbs.example.mysqlTextBoard.dto.Member;
 import com.sbs.example.mysqlTextBoard.service.ArticleService;
-import com.sbs.example.mysqlTextBoard.service.UserService;
+import com.sbs.example.mysqlTextBoard.service.MemberService;
 
 public class ArticleController extends Controller {
 
 	private ArticleService articleService;
-	private UserService userService;
+	private MemberService memberService;
 	private Scanner sc;
 
 	public ArticleController() {
 		articleService = Container.articleService;
-		userService = Container.userService;
+		memberService = Container.memberService;
 		sc = Container.sc;
 	}
 
@@ -48,10 +48,10 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		int loginedUserId = Container.session.getLoginedUserId();
-		User user = userService.getUserById(loginedUserId);
+		int loginedMemberId = Container.session.getLoginedMemberId();
+		Member member = memberService.getMemberById(loginedMemberId);
 
-		if (user.isAdmin() == false) {
+		if (member.isAdmin() == false) {
 			System.out.println("***관리자만 게시판을 생성할 수 있습니다.***");
 			return;
 		}
@@ -93,8 +93,8 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		User user = userService.getUserById(article.userId);
-		String writer = user.name;
+		Member member = memberService.getMemberById(article.memberId);
+		String writer = member.name;
 
 		System.out.printf("번호 : %d\n", article.id);
 		System.out.printf("작성일 : %s\n", article.regDate);
@@ -123,10 +123,10 @@ public class ArticleController extends Controller {
 		System.out.printf("내용  : ");
 		String body = sc.nextLine();
 
-		int userId = Container.session.getLoginedUserId();
+		int memberId = Container.session.getLoginedMemberId();
 		int boardId = 1; // 임시
 
-		int id = articleService.doWrite(title, body, userId, boardId);
+		int id = articleService.doWrite(title, body, memberId, boardId);
 		System.out.printf("%d번 게시물이 생성되었습니다.\n", id);
 	}
 
@@ -165,8 +165,8 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		User user = userService.getUserById(article.userId);
-		String writer = user.name;
+		Member member = memberService.getMemberById(article.memberId);
+		String writer = member.name;
 
 		System.out.printf("번호 : %d\n", article.id);
 		System.out.printf("작성일 : %s\n", article.regDate);
@@ -187,7 +187,7 @@ public class ArticleController extends Controller {
 
 		System.out.println("번호 / 작성 / 수정 / 작성자 / 제목");
 		for (Article article : articles) {
-			String writer = article.userName;
+			String writer = article.memberName;
 			System.out.printf("%d / %s / %s / %s / %s\n", article.id, article.regDate, article.updateDate, writer,
 					article.title);
 		}

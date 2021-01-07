@@ -28,8 +28,8 @@ public class ArticleService {
 
 	}
 
-	public int doWrite(String title, String body, int userId, int boardId) {
-		return articleDao.add(title, body, userId, boardId);
+	public int doWrite(String title, String body, int memberId, int boardId) {
+		return articleDao.add(title, body, memberId, boardId);
 	}
 
 	public List<Article> getArticlesForPrintOut(int boardId) {

@@ -10,7 +10,7 @@ CREATE TABLE article (
     updateDate DATETIME NOT NULL,
     title CHAR(200) NOT NULL,
     `body` TEXT NOT NULL,
-    userId INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
     boardId INT(10) UNSIGNED NOT NULL
 );
 
@@ -20,7 +20,7 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1',
-userId = 2,
+memberId = 2,
 boardId = 2;
 
 INSERT INTO article
@@ -28,7 +28,7 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
 `body` = '내용2',
-userId = 2,
+memberId = 2,
 boardId = 2;
 
 INSERT INTO article
@@ -36,11 +36,11 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3',
-userId = 1,
+memberId = 1,
 boardId = 1;
 
 # 회원 테이블 생성
-CREATE TABLE `user` (
+CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
@@ -50,14 +50,14 @@ CREATE TABLE `user` (
 );
 
 # 회원 데이터 생성
-INSERT INTO `user`
+INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
 accountName = 'test1',
 accountPw = 'test1',
 `name` = '테스터1';
 
-INSERT INTO `user`
+INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
 accountName = 'test2',
@@ -94,7 +94,7 @@ SET regDate = NOW(),
 updateDate =NOW(),
 title = CONCAT("제목_", RAND()),
 `body` = CONCAT("내용_", RAND()),
-userId = FLOOR (RAND()*2)+1,
+memberId = FLOOR (RAND()*2)+1,
 boardId = FLOOR (RAND()*2)+1;
 
 INSERT INTO article
@@ -102,7 +102,7 @@ SET regDate = NOW(),
 updateDate =NOW(),
 title = CONCAT("제목_", RAND()),
 `body` = CONCAT("내용_", RAND()),
-userId = FLOOR (RAND()*2)+1,
+memberId = FLOOR (RAND()*2)+1,
 boardId = FLOOR (RAND()*2)+1;
 
 INSERT INTO article
@@ -110,7 +110,7 @@ SET regDate = NOW(),
 updateDate =NOW(),
 title = CONCAT("제목_", RAND()),
 `body` = CONCAT("내용_", RAND()),
-userId = FLOOR (RAND()*2)+1,
+memberId = FLOOR (RAND()*2)+1,
 boardId = FLOOR (RAND()*2)+1;
 
 INSERT INTO article
@@ -118,7 +118,7 @@ SET regDate = NOW(),
 updateDate =NOW(),
 title = CONCAT("제목_", RAND()),
 `body` = CONCAT("내용_", RAND()),
-userId = FLOOR (RAND()*2)+1,
+memberId = FLOOR (RAND()*2)+1,
 boardId = FLOOR (RAND()*2)+1;
 */
 
@@ -135,7 +135,7 @@ WHERE `id` = '2';
 # 운영 시작
 
 TRUNCATE `article`;
-TRUNCATE `user`;
+TRUNCATE `member`;
 
 # it 게시판 추가
 INSERT INTO `board`
@@ -145,9 +145,15 @@ updateDate = NOW(),
 `code` = 'it';
 
 # 사용자 추가
-INSERT INTO `user`
+INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
-accountName = 'admin',
+accountName = 'fourleaves8',
 accountPw = 'admin',
 `name` = '천승우';
+
+INSERT INTO `textboard`.`article` (`regDate`, `updateDate`, `title`, `body`, `memberId`, `boardId`) VALUES (NOW(), NOW(), '# 공지사항', '---\r\n# 초보 개발자 MilkPotato의 개인 블로그 입니다.\r\n---\r\n', 'fourleaves8', '1'); 
+
+SELECT * FROM article;
+SELECT * FROM board;
+SELECT * FROM `member`;

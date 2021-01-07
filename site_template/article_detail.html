@@ -20,14 +20,17 @@
 	<div class="con">
 		<div class="article-detail">
 
-			<h2 class="article-detail__title"></h2>
+			<h3 class="article-detail__title">${article-detail__title}</h3>
 
-			<div class="article-detail__sub-info flex">
-				<div class="article-detail__board-name">${article-detail__board-name}</div>
-				<div class="article-detail__reg-date">${article-detail__reg-date}</div>
-				<div class="article-detail__writer">${article-detail__writer}</div>
+			<div class="article-detail__sub-info">
+
+				<span class="article-detail__board-name">${article-detail__board-name}
+					<span>|</span>
+				</span> <span class="article-detail__writer">${article-detail__writer}
+					<span>|</span>
+				</span> <span class="article-detail__reg-date">${article-detail__reg-date}</span>
+
 			</div>
-
 			<div class="article-detail__body main-font">${article-detail__body}</div>
 
 			<div class="article-detail__comment-box">
@@ -50,12 +53,12 @@
 			<div class="article-detail__menu flex">
 				<a title="${article-detail__link-prev-article-title-attr}"
 					href="${article-detail__link-prev-article-url}"
-					class="hover-underline ${article-detail__link-prev-article-class-addi}">&lt;
+					class="hover-bold ${article-detail__link-prev-article-class-addi}">&lt;
 					이전글</a> <a href="${article-detail__link-article-list-url}"
-					class="hover-underline ${article-detail__link-article-list-class-addi}">목록</a>
+					class="hover-bold ${article-detail__link-article-list-class-addi}">목록</a>
 				<a title="${article-detail__link-next-article-title-attr}"
 					href="${article-detail__link-next-article-url}"
-					class="hover-underline ${article-detail__link-next-article-class-addi}">다음글
+					class="hover-bold ${article-detail__link-next-article-class-addi}">다음글
 					&gt;</a>
 			</div>
 		</div>

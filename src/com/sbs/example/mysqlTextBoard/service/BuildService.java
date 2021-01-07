@@ -105,7 +105,7 @@ public class BuildService {
 			mainContents.append("<div>");
 			mainContents.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
 			mainContents.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
-			mainContents.append("<div class=\"article-list__cell-writer\">" + article.userName + "</div>");
+			mainContents.append("<div class=\"article-list__cell-writer\">" + article.memberName + "</div>");
 			mainContents.append("<div class=\"article-list__cell-title\">");
 			mainContents.append("<a href=\"" + link + "\" class=\"hover-underline\">" + article.title + "</a>");
 			mainContents.append("</div>");
@@ -149,7 +149,7 @@ public class BuildService {
 																					// 다를때 생성.
 
 		if (needBtnBeforePageBox) {
-			pageMenuContents.append("<li><a href=\"" + getArticleListFileName(board, pageBforePageBoxStartPage)
+			pageMenuContents.append("<li class=\"hover-bold\"><a href=\"" + getArticleListFileName(board, pageBforePageBoxStartPage)
 					+ "\" class=\"flex flex-ai-c\"> &lt; 이전</a></li>");
 		}
 		for (int i = pageBoxStartPage; i <= pageBoxEndPage; i++) {
@@ -161,7 +161,7 @@ public class BuildService {
 					+ selectedClass + "\">" + i + "</a></li>");
 		}
 		if (needBtnAfterPageBox) {
-			pageMenuContents.append("<li><a href=\"" + getArticleListFileName(board, pageAfterPageBoxEndPage)
+			pageMenuContents.append("<li class=\"hover-bold\"><a href=\"" + getArticleListFileName(board, pageAfterPageBoxEndPage)
 					+ "\" class=\"flex flex-ai-c\">다음 &gt;</a></li>");
 		}
 
@@ -261,7 +261,7 @@ public class BuildService {
 				body = body.replace("${article-detail__title}", article.title);
 				body = body.replace("${article-detail__board-name}", board.name);
 				body = body.replace("${article-detail__reg-date}", article.regDate);
-				body = body.replace("${article-detail__writer}", article.userName);
+				body = body.replace("${article-detail__writer}", article.memberName);
 				body = body.replace("${article-detail__body}", article.body);
 				body = body.replace("${article-detail__link-prev-article-url}",
 						getArticleDetailFileName(preveArticleId));

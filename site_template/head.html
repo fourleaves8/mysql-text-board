@@ -19,10 +19,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>게시물 상세페이지</title>
 
-<!-- loading fontawsome begins -->
+<!-- loading fontawsome -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-<!-- loading fontawsome ends -->
+<!------------------------>
 
 <link rel="stylesheet" href="app.css" />
 <meta name="google-site-verification"
@@ -41,41 +41,41 @@
 			</div>
 		</header>
 		<!-- logobar ends -->
-		<!-- menubar begins -->
+
+		<!--menubar begins-->
 		<header class="menu-bar con-min-width">
 			<div class="con height-100p">
 				<nav class="menu-bar__menu-1">
 					<ul class="flex">
 						<li><a href="index.html" class="block"> <i
-								class="fas fa-home"></i> <span>HOME</span>
+								class="fas fa-home"></i>
+								<div>HOME</div>
+						</a></li>
+						<li><a href="" class="block"> <i class="fas fa-user"></i>
+								<div>ABOUT</div>
 						</a></li>
 						<li><a href="" class="block"> <i class="fas fa-book-open"></i>
-								<span>ARTICLES</span>
+								<div>ARTICLES</div>
 						</a>
 							<ul>${menu-bar__menu-1__board-menu-contents}
 							</ul></li>
-						<li><a href="" class="block"> <i class="fas fa-link"></i>
-								<span>LINKS</span>
-						</a>
-							<ul>
-								<li><a href="" class="block"> <i
-										class="fab fa-blogger-b"></i> <span>Blog</span>
-								</a></li>
-								<li><a href="" class="block"> <i class="fab fa-github"></i>
-										<span>Github</span>
-								</a></li>
-							</ul></li>
-						<li><a href="" class="block"> <i
-								class="fas fa-chart-line"></i> <span>STATISTICS</span>
+						<li><a href="" class="block"> <i class="fas fa-archive"></i>
+								<div>ARCHIVE</div>
+						</a></li>
+						<li><a href="" class="block"> <i class="fas fa-tags"></i>
+								<div>TAG</div>
+						</a></li>
+						<li><a href="" class="block"> <i class="fas fa-search"></i>
+								<div>SEARCH</div>
 						</a></li>
 					</ul>
 				</nav>
 			</div>
 		</header>
-		<!-- menubar ends -->
+		<!--menubar ends-->
 
 		<!-- main begins -->
-		<main class="body flex-grow-1">
+		<div class="main flex-grow-1">
 			<section class="title-bar con-min-width">
 				<h1 class="con">${title-bar__contents}</h1>
 			</section>

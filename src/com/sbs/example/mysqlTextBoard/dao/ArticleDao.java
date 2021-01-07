@@ -49,7 +49,7 @@ public class ArticleDao {
 		MysqlUtil.delete(sql);
 	}
 
-	public int add(String title, String body, int userId, int boardId) {
+	public int add(String title, String body, int memberId, int boardId) {
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO article");
@@ -57,7 +57,7 @@ public class ArticleDao {
 		sql.append("updateDate = NOW(),");
 		sql.append("title = ?,", title);
 		sql.append("body = ?,", body);
-		sql.append("userId = ?,", userId);
+		sql.append("memberId = ?,", memberId);
 		sql.append("boardId = ?", boardId);
 
 		return MysqlUtil.insert(sql);
@@ -68,10 +68,10 @@ public class ArticleDao {
 
 		SecSql sql = new SecSql();
 		sql.append("SELECT A.*,");
-		sql.append("U.name AS userName");
+		sql.append("U.name AS memberName");
 		sql.append("FROM article AS A");
-		sql.append("INNER JOIN `user` AS U");
-		sql.append("ON A.userId = U.id");
+		sql.append("INNER JOIN `member` AS U");
+		sql.append("ON A.memberId = U.id");
 
 		if (boardId != 0) {
 			sql.append("WHERE A.boardId = ?", boardId);

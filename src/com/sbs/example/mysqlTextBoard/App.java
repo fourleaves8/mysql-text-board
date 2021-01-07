@@ -39,8 +39,8 @@ public class App {
 	private Controller getControllerByCmd(String cmd) {
 		if (cmd.startsWith("article ")) {
 			return Container.articleController;
-		} else if (cmd.startsWith("user ")) {
-			return Container.userController;
+		} else if (cmd.startsWith("member ")) {
+			return Container.memberController;
 		} else if (cmd.startsWith("build ")) {
 			return Container.buildController;
 		}
